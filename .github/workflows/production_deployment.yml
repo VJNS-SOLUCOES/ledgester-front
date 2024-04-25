@@ -1,0 +1,40 @@
+name: Build and deploy development React app
+on:
+  push:
+    branches:
+      - 'main'
+env:
+  NODE_VERSION: 20.x
+  PUBLISH_PATH: src/publish
+  ARTIFACT_NAME: HomeGyn_artifact
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '${{ env.NODE_VERSION }}'
+      - name: Install dependencies
+        run: yarn install
+      - name: Build development app
+        run: yarn build:production
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.PUBLISH_PATH }}
+          if-no-files-found: error
+  deploy:
+    env:
+      TARGET_PATH: /inetpub/wwwroot/HomeGyn_Prod
+    runs-on: self-hosted
+    needs: build
+    steps:
+      # - uses: actions/checkout@v4
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.TARGET_PATH }}
