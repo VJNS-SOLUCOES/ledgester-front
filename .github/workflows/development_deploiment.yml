@@ -1,8 +1,7 @@
 name: Build and deploy development React app
 on:
-  push:
-    branches:
-      - 'development'
+  pull_request:
+    types: [opened, reopened, synchronize]
 env:
   NODE_VERSION: 20.x
   PUBLISH_PATH: src/publish
