@@ -1,4 +1,4 @@
-name: Build and deploy development React app
+name: Build and deploy production React app
 on:
   push:
     branches:
