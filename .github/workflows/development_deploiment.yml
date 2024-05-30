@@ -27,7 +27,7 @@ jobs:
           if-no-files-found: error
   deploy:
     env:
-      TARGET_PATH: /inetpub/wwwroot/HomeGyn_Homologacao
+      TARGET_PATH: /Sistema/HomeGyn_HML/React
     runs-on: self-hosted
     needs: build
     steps:
