@@ -19,7 +19,9 @@ export const Wrapper: React.FC<Props> = ({ children }) => {
   return (
     <div className="h-screen flex">
       <header
-        className="bg-primary relative w-20 overflow-hidden z-50 hover:animate-ripple"
+        className={`bg-primary relative w-20 overflow-hidden z-50 ${
+          mouseEnter && 'animate-ripple'
+        }`}
         onMouseEnter={() => setMouseEnter(!mouseEnter)}
         onMouseLeave={() => setMouseEnter(!mouseEnter)}
       >

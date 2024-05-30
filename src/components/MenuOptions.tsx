@@ -1,4 +1,5 @@
-import { Typography } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 type Props = {
@@ -9,18 +10,28 @@ type Props = {
 };
 
 export const MenuOptions: React.FC<Props> = ({ menuIten, description, mouseEnter, route }) => {
+  const [hidden, setHidden] = useState<boolean>(false);
   const { pathname } = useLocation();
 
   const navigate = useNavigate();
 
   return (
-    <button className="hover:border-l-4 cursor-pointer" onClick={() => navigate(route)}>
-      <div className="pl-2 active:animate-click hover:bg-black/30 flex items-center gap-5">
-        <span className={`p-3 ${route === pathname && !mouseEnter && 'bg-black/30'} rounded-xl`}>
-          {menuIten}
-        </span>
-        <Typography className="text-white">{description}</Typography>
-      </div>
-    </button>
+    <div
+      className="flex items-center"
+      onMouseEnter={() => setHidden(!hidden)}
+      onMouseLeave={() => setHidden(!hidden)}
+    >
+      {(hidden || route === pathname) && (
+        <Divider orientation="vertical" className="bg-white py-6 w-[3px]" />
+      )}
+      <button className="cursor-pointer w-full" onClick={() => navigate(route)}>
+        <div className="pl-2 active:animate-click hover:bg-black/30 flex items-center gap-5">
+          <span className={`p-3 ${route === pathname && !mouseEnter && 'bg-black/30'} rounded-xl`}>
+            {menuIten}
+          </span>
+          <Typography className="text-white">{description}</Typography>
+        </div>
+      </button>
+    </div>
   );
 };

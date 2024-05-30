@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:prod": "tsc && vite build --mode production --outDir src/publish",
+    "build:development": "tsc && vite build --mode development --outDir src/publish",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -15,7 +17,9 @@
     "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.15.6",
     "@types/react-router-dom": "^5.3.3",
+    "chart.js": "^4.4.2",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.3"
   },
