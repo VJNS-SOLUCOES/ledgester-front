@@ -32,7 +32,6 @@ jobs:
     runs-on: self-hosted
     needs: build
     steps:
-      # - uses: actions/checkout@v4
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
