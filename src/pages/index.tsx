@@ -1,6 +1,6 @@
 import React from 'react';
 import { Wrapper } from '../components';
-import { Bar } from 'react-chartjs-2';
+// import { Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 
 const MainPage: React.FC = () => {
