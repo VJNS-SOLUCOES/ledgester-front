@@ -28,7 +28,7 @@ jobs:
           if-no-files-found: error
   deploy:
     env:
-      TARGET_PATH: /Sistema/HomeGyn_HML/React
+      TARGET_PATH: /Sistema/HomeGyn_HML
     runs-on: self-hosted
     needs: build
     steps:
