@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
   };
   return (
     <header className="h-16 flex justify-center items-center bg-white">
-      <div className="flex items-center w-[2470px]">
+      <div className="flex items-center w-full">
         <img className=" w-28 mx-5 border-slate-300" src={LogoDark} alt="JSV" />
         <NavBar />
         <div className="flex h-5/6 justify-end px-4 gap-5 items-center w-1/3">

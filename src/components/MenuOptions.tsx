@@ -21,11 +21,12 @@ export const MenuOptions: React.FC<Props> = ({ menuIten, description, mouseEnter
       onMouseEnter={() => setHidden(!hidden)}
       onMouseLeave={() => setHidden(!hidden)}
     >
-      {(hidden || route === pathname) && (
-        <Divider orientation="vertical" className="bg-white py-6 w-[3px]" />
-      )}
       <button className="cursor-pointer w-full" onClick={() => navigate(route)}>
-        <div className="pl-2 active:animate-click hover:bg-black/30 flex items-center gap-5">
+        <div
+          className={`pl-2 active:animate-click hover:bg-black/30 ${
+            route === pathname && mouseEnter && 'bg-black/30'
+          } flex items-center gap-5`}
+        >
           <span className={`p-3 ${route === pathname && !mouseEnter && 'bg-black/30'} rounded-xl`}>
             {menuIten}
           </span>
