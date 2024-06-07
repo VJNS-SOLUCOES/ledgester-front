@@ -4,14 +4,6 @@ import { createTheme } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
 
 const theme = createTheme({
-  components: {},
-  typography: {
-    allVariants: {
-      fontFamily: 'Roboto',
-      fontWeight: '400',
-      color: '#FFFFFF',
-    },
-  },
   palette: {
     alert: {
       main: '#FFA217',
@@ -42,6 +34,9 @@ const theme = createTheme({
     },
     error: {
       main: red.A400,
+    },
+    gray: {
+      main: '#e9eaf0',
     },
   },
 });

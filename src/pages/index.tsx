@@ -1,21 +1,26 @@
 import React from 'react';
-import { Wrapper } from '../components';
-// import { Bar } from 'react-chartjs-2';
+import { Wrapper, ContentBox } from '../components';
 import 'chart.js/auto';
+// import { useAuth } from '../context/AuthContext';
 
 const MainPage: React.FC = () => {
+  // const { user } = useAuth();
+
   return (
     <Wrapper>
-      <div className="bg-black h-64">
-        {/*<Bar
-          className="bg-white"
-          data={{
-            labels: ['A', 'B', 'C'],
-            datasets: [{ label: 'ola', data: [200, 300, 200] }],
-          }}
-        />
-        */}
-      </div>
+      <ContentBox>
+        <div className="flex flex-col gap-11">
+          {/* <div className="flex flex-col">
+            <h1 className="font-bold text-[32px] bg-white">Favoritos</h1>
+            <h2 className="font-light text-black/70 text-sm">
+              Acesso as funções mais acessadas do sistema
+            </h2>
+          </div>
+          <div>
+            <FavoriteBox description="Visão de dono" />
+          </div> */}
+        </div>
+      </ContentBox>
     </Wrapper>
   );
 };

@@ -7,7 +7,7 @@ interface Props {
 }
 
 const ProtectedRoutes: React.FC<Props | any> = ({ redirect, children }) => {
-  const token = localStorage.getItem('page');
+  const token = JSON.parse(localStorage.getItem('user')!);
 
   if (!token) {
     return <Navigate to={redirect} replace />;
