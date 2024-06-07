@@ -27,7 +27,7 @@ export const theme = {
      keyframes: {
         ripple: {
           '0%': { width: '96px' },
-          '100%': { width: '305px' },
+          '100%': { width: '204px' },
         },
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
@@ -51,7 +51,7 @@ export const theme = {
         },
       },
     animation: {
-        ripple: 'ripple 1s ease 1 forwards',
+        ripple: 'ripple 0.3s ease 1 forwards',
         wiggle: 'wiggle 1s ease-in-out infinite',
         opacityCustom: 'opacityCustom 0.5s ease-in-out',
         timeToReload: 'timeToReload 20s ease infinite',

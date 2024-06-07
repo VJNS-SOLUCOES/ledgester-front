@@ -1,4 +1,7 @@
+import { MenuDto } from './menuDto';
+
 export type UserDto = {
-  success: boolean;
-  data: { token: string; usuarioId: number };
+  token: string;
+  usuarioId: number;
+  menu: MenuDto[];
 };

@@ -1,32 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import logo from '../assets/realStateLogoDark.svg';
 import { Button, TextField } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { MAIN_PAGE } from '../configs';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { LoginDto } from '../types';
 import { useQuery } from 'react-query';
 import { authRequest } from '../services';
 import { AxiosError } from 'axios';
-
-const schema = yup.object({
-  email: yup
-    .string()
-    .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, 'O email é inválido')
-    .required('O email é obrigatório')
-    .max(100, 'O email deve ter no máximo 100 caracteres'),
-  password: yup
-    .string()
-    .required('A senha é obrigatória')
-    .min(10, 'A senha deve ter no mínimo 10 caracteres')
-    .max(100, 'A senha deve ter no máximo 100 caracteres'),
-});
+import { useAuth } from '../context/AuthContext';
+import { loginSchema } from '../schemas';
+import { toast } from 'react-toastify';
 
 const LoginPage: React.FC = () => {
   const [request, setRequest] = useState<boolean>(false);
-  const navigate = useNavigate();
+  const { login, logout } = useAuth();
 
   const {
     register,
@@ -35,14 +22,14 @@ const LoginPage: React.FC = () => {
     formState: { errors },
   } = useForm<LoginDto>({
     mode: 'onSubmit',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginSchema),
   });
 
   useQuery('login', () => authRequest(getValues()), {
-    onSuccess: data => {
+    onSuccess: respone => {
       setRequest(false);
-      localStorage.setItem('user', JSON.stringify(data));
-      navigate(MAIN_PAGE);
+      login(respone.data);
+      toast.success('Login efetuado com sucesso.');
     },
     onError: (error: any) => {
       setRequest(false);
