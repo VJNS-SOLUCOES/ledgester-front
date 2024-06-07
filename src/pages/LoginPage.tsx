@@ -34,7 +34,7 @@ const LoginPage: React.FC = () => {
     onError: (error: any) => {
       setRequest(false);
       if (error instanceof AxiosError) {
-        console.log(error);
+        toast.warning(error.response?.data.errors.message);
       }
     },
     refetchOnWindowFocus: false,
