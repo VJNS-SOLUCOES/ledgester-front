@@ -10,6 +10,7 @@ import { AxiosError } from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { loginSchema } from '../schemas';
 import { toast } from 'react-toastify';
+import { ErrorDTO } from '../types/errorDto';
 
 const LoginPage: React.FC = () => {
   const [request, setRequest] = useState<boolean>(false);
@@ -34,7 +35,12 @@ const LoginPage: React.FC = () => {
     onError: (error: any) => {
       setRequest(false);
       if (error instanceof AxiosError) {
-        toast.warning(error.response?.data.errors.message);
+        const errors: ErrorDTO = error.response?.data.errors;
+        if (errors.stackTrace !== '') {
+          toast.error(errors.stackTrace);
+        } else {
+          toast.warning(errors.message);
+        }
       }
     },
     refetchOnWindowFocus: false,
