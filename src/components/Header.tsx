@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavBar } from './index';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Button, Divider, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { Button, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
 type Porps = {

@@ -2,9 +2,7 @@ import Logo from '../assets/logoHomeGyn.svg';
 import FullLogo from '../assets/ligthLogo.svg';
 import { MenuOptions, Header } from './index';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { MAIN_PAGE } from '../configs';
 
 type Props = {
   children: React.ReactNode;
@@ -14,8 +12,6 @@ export const Wrapper: React.FC<Props> = ({ children }) => {
   const [mouseEnter, setMouseEnter] = useState<boolean>(false);
   const [expandedMenu, setExpandedMenu] = useState<boolean>(false);
   const { user } = useAuth();
-
-  const navigate = useNavigate();
 
   return (
     <div className="h-screen flex">

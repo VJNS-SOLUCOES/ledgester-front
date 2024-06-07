@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 
 const LoginPage: React.FC = () => {
   const [request, setRequest] = useState<boolean>(false);
-  const { login, logout } = useAuth();
+  const { login } = useAuth();
 
   const {
     register,

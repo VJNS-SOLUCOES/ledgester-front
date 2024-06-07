@@ -1,10 +1,10 @@
 import React from 'react';
-import { Wrapper, ContentBox, FavoriteBox } from '../components';
+import { Wrapper, ContentBox } from '../components';
 import 'chart.js/auto';
-import { useAuth } from '../context/AuthContext';
+// import { useAuth } from '../context/AuthContext';
 
 const MainPage: React.FC = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
   return (
     <Wrapper>
