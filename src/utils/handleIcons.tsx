@@ -1,21 +1,15 @@
-import SimCardDownloadOutlinedIcon from '@mui/icons-material/SimCardDownloadOutlined';
-import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import { BsPersonFillLock } from 'react-icons/bs';
+import { MdOutlinePostAdd, MdPersonAddAlt1, MdGroupAdd } from 'react-icons/md';
+import { RiMoneyDollarCircleLine } from 'react-icons/ri';
+import { CgFileDocument } from 'react-icons/cg';
 
 const iconMap: { [key: string]: React.ReactNode } = {
-  DragIndicatorIcon: <DragIndicatorIcon fontSize="medium" className="text-white rotate-90" />,
-  SupervisedUserCircleOutlinedIcon: (
-    <SupervisedUserCircleOutlinedIcon fontSize="medium" className="text-white" />
-  ),
-  SimCardDownloadOutlinedIcon: (
-    <SimCardDownloadOutlinedIcon fontSize="medium" className="text-white" />
-  ),
-  MapsHomeWorkOutlinedIcon: <MapsHomeWorkOutlinedIcon fontSize="medium" className="text-white" />,
-  AttachMoneyIcon: <AttachMoneyIcon fontSize="medium" className="text-white" />,
-  GroupAddIcon: <GroupAddIcon fontSize="medium" className="text-white" />,
+  MdOutlinePostAdd: <MdOutlinePostAdd className="text-white text-2xl" />,
+  CgFileDocument: <CgFileDocument className="text-white text-2xl" />,
+  MdPersonAddAlt1: <MdPersonAddAlt1 className="text-white text-lg" />,
+  MdGroupAdd: <MdGroupAdd className="text-white text-lg" />,
+  RiMoneyDollarCircleLine: <RiMoneyDollarCircleLine className="text-white text-2xl" />,
+  BsPersonFillLock: <BsPersonFillLock className="text-white text-lg" />,
 };
 
 export const handleIcons = (iconName: string): React.ReactNode | null => {

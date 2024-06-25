@@ -9,4 +9,5 @@ export type FunctionChildrenDto = {
   funcaoId: number;
   desc_Funcao: string;
   rotaFront: string;
+  icon_Funcao: string;
 };
