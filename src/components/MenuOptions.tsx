@@ -11,7 +11,7 @@ import { FunctionChildrenDto } from '../types/menuDto';
 import { handleIcons } from '../utils';
 import { useState } from 'react';
 import { SubMenuOption } from './SubMenuOption';
-import { sideBarTheme } from '../styles/sideBarTheme';
+import sideBarTheme from '../styles/sideBarTheme';
 
 type Props = {
   expandedMenu: boolean;
