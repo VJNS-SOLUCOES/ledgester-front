@@ -1,6 +1,7 @@
 import {
   DOCUMENTS_PAGE,
   FINANCIAL_PAGE,
+  GROUP_REGISTRATION,
   LEADS_PAGE,
   LOGIN_PAGE,
   MAIN_PAGE,
@@ -17,6 +18,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { AuthContextProvider } from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import GroupRegistration from './pages/GroupRegistration';
 
 const queryClient = new QueryClient();
 
@@ -35,6 +37,7 @@ function App() {
                 <Route path={DOCUMENTS_PAGE} element={<MainPage />} />
                 <Route path={PROPERTIES_PAGE} element={<MainPage />} />
                 <Route path={FINANCIAL_PAGE} element={<MainPage />} />
+                <Route path={GROUP_REGISTRATION} element={<GroupRegistration />} />
               </Route>
             </Routes>
           </AuthContextProvider>
