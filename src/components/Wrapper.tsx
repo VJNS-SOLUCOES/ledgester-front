@@ -17,8 +17,8 @@ export const Wrapper: React.FC<Props> = ({ children }) => {
     <div className="h-screen flex">
       <nav
         className="bg-primary relative z-50 w-auto"
-        onMouseEnter={() => setMouseEnter(!mouseEnter)}
-        onMouseLeave={() => setMouseEnter(!mouseEnter)}
+        onMouseEnter={() => setMouseEnter(true)}
+        onMouseLeave={() => setMouseEnter(false)}
       >
         <div
           className={`overflow-hidden ${expandedMenu ? 'w-[204px]' : 'w-[50px]'} ${

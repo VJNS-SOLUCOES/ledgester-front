@@ -4,3 +4,4 @@ export * from './defaultResponseDto';
 export * from './contextType';
 export * from './errorDto';
 export * from './menuDto';
+export * from './groupProfileDto';

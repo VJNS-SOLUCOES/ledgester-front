@@ -37,7 +37,6 @@ export const AuthContextProvider: React.FC<Props> = ({ children }) => {
   const logout = useCallback(() => {
     setUser(undefined);
     navigate(LOGIN_PAGE);
-    localStorage.removeItem('user');
   }, [navigate]);
 
   const value = useMemo(

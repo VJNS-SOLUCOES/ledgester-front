@@ -4,6 +4,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Button, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useAuth } from '../context/AuthContext';
 
 type Porps = {
   expandedMenu: boolean;
@@ -12,6 +13,7 @@ type Porps = {
 
 export const Header: React.FC<Porps> = ({ expandedMenu, setExpandedMenu }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { logout } = useAuth();
 
   const open = Boolean(anchorEl);
 
@@ -19,7 +21,7 @@ export const Header: React.FC<Porps> = ({ expandedMenu, setExpandedMenu }) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    setAnchorEl(null);
+    logout();
   };
   return (
     <header className="h-16 flex w-full justify-between items-center bg-white">

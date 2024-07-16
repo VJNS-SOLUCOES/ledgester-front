@@ -11,6 +11,7 @@ import { useAuth } from '../context/AuthContext';
 import { loginSchema } from '../schemas';
 import { toast } from 'react-toastify';
 import { ErrorDTO } from '../types/errorDto';
+import { ThreeDots as Loader, ThreeDots } from 'react-loader-spinner';
 
 const LoginPage: React.FC = () => {
   const [request, setRequest] = useState<boolean>(false);
@@ -26,11 +27,12 @@ const LoginPage: React.FC = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  useQuery('login', () => authRequest(getValues()), {
+  const { isLoading } = useQuery('login', () => authRequest(getValues()), {
     onSuccess: respone => {
       setRequest(false);
       login(respone.data);
       toast.success('Login efetuado com sucesso.');
+      console.log(respone.data);
     },
     onError: (error: any) => {
       setRequest(false);
@@ -53,6 +55,7 @@ const LoginPage: React.FC = () => {
   };
 
   useEffect(() => {
+    localStorage.removeItem('function');
     localStorage.removeItem('user');
   }, []);
 
@@ -93,8 +96,23 @@ const LoginPage: React.FC = () => {
                 </a>
               </div>
             </div>
-            <Button className="w-3/5 self-center" type="submit" variant="contained">
-              <span className="normal-case text-lg font-semibold">Entrar</span>
+            <Button
+              className="w-3/5 self-center"
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <ThreeDots
+                  height="20"
+                  width="54"
+                  radius="9"
+                  color="white"
+                  ariaLabel="three-dots-loading"
+                />
+              ) : (
+                <span className="normal-case text-lg font-semibold">Entrar</span>
+              )}
             </Button>
           </form>
         </div>
