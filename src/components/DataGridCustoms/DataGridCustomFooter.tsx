@@ -29,7 +29,7 @@ const CustomPagination = () => {
       page={page + 1}
       // @ts-expect-error
       renderItem={props2 => <PaginationItem {...props2} disableRipple />}
-      onChange={(event: React.ChangeEvent<unknown>, value: number) =>
+      onChange={(_event: React.ChangeEvent<unknown>, value: number) =>
         apiRef.current.setPage(value - 1)
       }
     />

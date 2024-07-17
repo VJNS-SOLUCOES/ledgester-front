@@ -3,7 +3,6 @@ import { ErrorDTO, FunctionChildrenDto } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { handleIcons } from '../utils';
-import { useQuery } from 'react-query';
 import { serviceRequest } from '../services';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
