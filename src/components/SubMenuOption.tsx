@@ -1,8 +1,12 @@
 import React from 'react';
-import { FunctionChildrenDto } from '../types';
+import { ErrorDTO, FunctionChildrenDto } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { handleIcons } from '../utils';
+import { useQuery } from 'react-query';
+import { serviceRequest } from '../services';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 type Props = {
   mouseEnter: boolean;
@@ -13,9 +17,22 @@ type Props = {
 export const SubMenuOption: React.FC<Props> = ({ functionsOptions, mouseEnter, pathname }) => {
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
+  const handleNavigate = async () => {
     localStorage.setItem('function', functionsOptions.desc_Funcao);
-    navigate(functionsOptions.rotaFront);
+
+    try {
+      const permitions = await serviceRequest(functionsOptions.funcaoId);
+      navigate(functionsOptions.rotaFront, { state: permitions.data });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const errors: ErrorDTO = error.response?.data.errors;
+        if (errors.stackTrace !== '') {
+          toast.error(errors.stackTrace);
+        } else {
+          toast.warning(errors.message);
+        }
+      }
+    }
   };
 
   return (

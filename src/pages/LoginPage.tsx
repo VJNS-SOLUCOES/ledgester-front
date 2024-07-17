@@ -11,7 +11,7 @@ import { useAuth } from '../context/AuthContext';
 import { loginSchema } from '../schemas';
 import { toast } from 'react-toastify';
 import { ErrorDTO } from '../types/errorDto';
-import { ThreeDots as Loader, ThreeDots } from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 
 const LoginPage: React.FC = () => {
   const [request, setRequest] = useState<boolean>(false);
@@ -32,7 +32,6 @@ const LoginPage: React.FC = () => {
       setRequest(false);
       login(respone.data);
       toast.success('Login efetuado com sucesso.');
-      console.log(respone.data);
     },
     onError: (error: any) => {
       setRequest(false);

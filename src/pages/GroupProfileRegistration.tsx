@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ContentBox, Wrapper } from '../components';
 import { Button, InputAdornment, MenuItem, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { GroupProfileTable } from '../components/GroupProfileTable';
-import { GroupProfileTableRequestDTO } from '../types';
+import { GroupProfileDTO, GroupProfileTableRequestDTO } from '../types';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 
 const GroupProfileRegistration: React.FC = () => {
   const [search, setSearch] = useState<string>('');
   const [request, setRequest] = useState<boolean>(false);
+
+  const location = useLocation();
+  const permitions = location.state as GroupProfileDTO;
 
   const {
     register,

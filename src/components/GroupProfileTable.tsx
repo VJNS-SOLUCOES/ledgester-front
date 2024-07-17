@@ -95,6 +95,7 @@ export const GroupProfileTable: React.FC<Props> = ({
       <DataGrid
         disableColumnMenu
         density="compact"
+        getRowId={row => row.funcao_Id}
         isCellEditable={() => false}
         loading={isLoading}
         columns={columns}
