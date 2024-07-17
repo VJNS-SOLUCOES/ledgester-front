@@ -37,7 +37,9 @@ const LoginPage: React.FC = () => {
       setRequest(false);
       if (error instanceof AxiosError) {
         const errors: ErrorDTO = error.response?.data.errors;
-        if (errors.stackTrace !== '') {
+        if (error.response === undefined) {
+          toast.error('Algo deu errado!');
+        } else if (errors.stackTrace !== '') {
           toast.error(errors.stackTrace);
         } else {
           toast.warning(errors.message);
