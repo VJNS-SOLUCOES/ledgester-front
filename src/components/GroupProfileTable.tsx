@@ -79,14 +79,14 @@ export const GroupProfileTable: React.FC<Props> = ({
     setUpdateGroupProfileConfiguration((prevTeste: GroupProfileConfigurationDTO[]) => {
       if (checked !== currentValue) {
         const { particularidade, desc_Funcao, ...rest } = { ...row, [field]: checked };
-        const updatedItem = { ...rest, grupoUsuarioId: groupProfileParams.grupoUsuarioId };
-
-        const exists = prevTeste.some(item => item.funcao_Id === row.funcao_Id);
+        const exists = prevTeste.find(item => item.funcao_Id === row.funcao_Id);
 
         if (exists) {
-          return prevTeste.map(item => (item.funcao_Id === row.funcao_Id ? updatedItem : item));
+          return prevTeste.map(item =>
+            item.funcao_Id === row.funcao_Id ? { ...exists, [field]: checked } : item,
+          );
         } else {
-          return [...prevTeste, updatedItem];
+          return [...prevTeste, { ...rest, grupoUsuarioId: groupProfileParams.grupoUsuarioId }];
         }
       } else {
         return prevTeste.filter(item => item.funcao_Id !== row.funcao_Id);
