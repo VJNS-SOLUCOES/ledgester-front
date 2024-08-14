@@ -1,17 +1,15 @@
-import React, { SetStateAction, useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import { useQuery } from 'react-query';
 import {
-  ErrorDTO,
   GroupProfileConfigurationDTO,
   GroupProfileDTO,
   GroupProfileTableDTO,
   GroupProfileTableRequestDTO,
 } from '../types';
 import { groupProfileRequest } from '../services';
-import { AxiosError } from 'axios';
-import { toast } from 'react-toastify';
-import { Checkbox } from '@mui/material';
+import { Box, Button, Checkbox, Divider, Modal, Typography } from '@mui/material';
+import { firstCapitalLetters, handleErros } from '../utils';
 
 type Props = {
   search: string;
@@ -44,16 +42,7 @@ export const GroupProfileTable: React.FC<Props> = ({
       },
       onError: (error: any) => {
         setRequest(false);
-        if (error instanceof AxiosError) {
-          const errors: ErrorDTO = error.response?.data.errors;
-          if (error.response === undefined) {
-            toast.error('Algo deu errado!');
-          } else if (errors.stackTrace !== '') {
-            toast.error(errors.stackTrace);
-          } else {
-            toast.warning(errors.message);
-          }
-        }
+        handleErros(error);
       },
       refetchOnWindowFocus: false,
       refetchOnMount: true,
@@ -70,26 +59,28 @@ export const GroupProfileTable: React.FC<Props> = ({
     return data;
   });
 
-  const handleCheckboxChange = (
-    row: GroupProfileTableDTO,
-    field: string,
-    checked: boolean,
-    currentValue: boolean,
-  ) => {
+  const handleCheckboxChange = (row: GroupProfileTableDTO, field: string, checked: boolean) => {
     setUpdateGroupProfileConfiguration((prevTeste: GroupProfileConfigurationDTO[]) => {
-      if (checked !== currentValue) {
-        const { particularidade, desc_Funcao, ...rest } = { ...row, [field]: checked };
-        const exists = prevTeste.find(item => item.funcao_Id === row.funcao_Id);
+      const { particularidade, desc_Funcao, ...rest } = { ...row, [field]: checked };
 
-        if (exists) {
-          return prevTeste.map(item =>
-            item.funcao_Id === row.funcao_Id ? { ...exists, [field]: checked } : item,
-          );
-        } else {
-          return [...prevTeste, { ...rest, grupoUsuarioId: groupProfileParams.grupoUsuarioId }];
+      const exists = prevTeste.find(item => item.funcao_Id === row.funcao_Id);
+      if (exists) {
+        const newValue = { ...exists, [field]: checked };
+        const isDifferent = Object.keys(newValue)
+          .slice(0, 4)
+          .map(key => {
+            return newValue[key as keyof typeof newValue] !== row[key as keyof typeof row];
+          });
+
+        if (isDifferent.every(value => value === false)) {
+          return prevTeste.filter(item => item.funcao_Id !== row.funcao_Id);
         }
+
+        return prevTeste.map(item =>
+          item.funcao_Id === row.funcao_Id ? { ...exists, [field]: checked } : item,
+        );
       } else {
-        return prevTeste.filter(item => item.funcao_Id !== row.funcao_Id);
+        return [...prevTeste, { ...rest, grupoUsuarioId: groupProfileParams.grupoUsuarioId }];
       }
     });
   };
@@ -111,13 +102,18 @@ export const GroupProfileTable: React.FC<Props> = ({
       renderCell: ({ row }) => {
         const [checked, setChecked] = useState<boolean>(row.can_Search);
 
+        useEffect(() => {
+          setChecked(row.can_Search);
+          setUpdateGroupProfileConfiguration([]);
+        }, [request]);
+
         return (
           <Checkbox
             disabled={!permitions.permissao.can_Save}
             checked={checked}
             onChange={event => {
               setChecked(event.target.checked);
-              handleCheckboxChange(row, 'can_Search', event.target.checked, row.can_Search);
+              handleCheckboxChange(row, 'can_Search', event.target.checked);
             }}
           />
         );
@@ -131,13 +127,18 @@ export const GroupProfileTable: React.FC<Props> = ({
       renderCell: ({ row }) => {
         const [checked, setChecked] = useState<boolean>(row.can_Save);
 
+        useEffect(() => {
+          setChecked(row.can_Save);
+          setUpdateGroupProfileConfiguration([]);
+        }, [request]);
+
         return (
           <Checkbox
             disabled={!permitions.permissao.can_Save}
             checked={checked}
             onChange={event => {
               setChecked(event.target.checked);
-              handleCheckboxChange(row, 'can_Save', event.target.checked, row.can_Save);
+              handleCheckboxChange(row, 'can_Save', event.target.checked);
             }}
           />
         );
@@ -151,13 +152,18 @@ export const GroupProfileTable: React.FC<Props> = ({
       renderCell: ({ row }) => {
         const [checked, setChecked] = useState<boolean>(row.can_Delete);
 
+        useEffect(() => {
+          setChecked(row.can_Delete);
+          setUpdateGroupProfileConfiguration([]);
+        }, [request]);
+
         return (
           <Checkbox
             disabled={!permitions.permissao.can_Save}
             checked={checked}
             onChange={event => {
               setChecked(event.target.checked);
-              handleCheckboxChange(row, 'can_Delete', event.target.checked, row.can_Delete);
+              handleCheckboxChange(row, 'can_Delete', event.target.checked);
             }}
           />
         );
@@ -169,15 +175,77 @@ export const GroupProfileTable: React.FC<Props> = ({
       flex: 2,
       hideable: false,
       renderCell: ({ row }: { row: GroupProfileTableDTO }) => {
+        const [open, setOpen] = useState(false);
+
         return (
           <>
             {row.particularidade.length < 1 ? (
-              <p className="cursor-pointer hover:underline">Não há particularidades</p>
+              <p className="font-bold text-black/40 cursor-default">Não há particularidades</p>
             ) : (
-              <p className="font-bold hover:underline cursor-pointer active:underline">
+              <p
+                className="font-bold hover:underline cursor-pointer active:underline"
+                onClick={() => setOpen(true)}
+              >
                 Há particularidades
               </p>
             )}
+            <Modal
+              open={open}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col w-1/4 gap-4 bg-white rounded-md shadow-2xl py-4">
+                <p className="text-2xl font-medium px-4">Cadastro de Perfil de Grupo</p>
+                <Divider />
+                <span className="text-black/80 px-4 font-normal flex min-h-60 flex-col gap-3">
+                  <span>
+                    <p>Nome do Grupo: {groupProfileParams.nomeGrupoUsuario}</p>
+                    <p>Nome da Função: {row.desc_Funcao}</p>
+                  </span>
+                  <span className=" flex items-center gap-2">
+                    {row.particularidade.map(element => {
+                      const [checked, setChecked] = useState<boolean>(
+                        element.presenca_particularidade,
+                      );
+                      return (
+                        <>
+                          <Checkbox
+                            disabled={!permitions.permissao.can_Save}
+                            checked={checked}
+                            onChange={event => {
+                              setChecked(event.target.checked);
+                            }}
+                          />
+                          <p className="text-black/50">
+                            {firstCapitalLetters(element.desc_parametro)}
+                          </p>
+                        </>
+                      );
+                    })}
+                  </span>
+                </span>
+                <Divider />
+                <div className="flex px-4 gap-4">
+                  <Button
+                    variant="contained"
+                    sx={{
+                      borderRadius: 4,
+                    }}
+                  >
+                    Gravar
+                  </Button>
+                  <Button
+                    onClick={() => setOpen(false)}
+                    variant="outlined"
+                    sx={{
+                      borderRadius: 4,
+                    }}
+                  >
+                    Cancelar
+                  </Button>
+                </div>
+              </Box>
+            </Modal>
           </>
         );
       },

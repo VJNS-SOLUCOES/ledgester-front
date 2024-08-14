@@ -34,6 +34,7 @@ export type ParticularitiesDTO = {
 
 export type GroupProfileTableRequestDTO = {
   grupoUsuarioId: number;
+  nomeGrupoUsuario?: string;
   tabTipofuncao_Id: number;
 };
 

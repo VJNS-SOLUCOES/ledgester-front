@@ -12,6 +12,7 @@ import { loginSchema } from '../schemas';
 import { toast } from 'react-toastify';
 import { ErrorDTO } from '../types/errorDto';
 import { ThreeDots } from 'react-loader-spinner';
+import { handleErros } from '../utils';
 
 const LoginPage: React.FC = () => {
   const [request, setRequest] = useState<boolean>(false);
@@ -35,16 +36,7 @@ const LoginPage: React.FC = () => {
     },
     onError: (error: any) => {
       setRequest(false);
-      if (error instanceof AxiosError) {
-        const errors: ErrorDTO = error.response?.data.errors;
-        if (error.response === undefined) {
-          toast.error('Algo deu errado!');
-        } else if (errors.stackTrace !== '') {
-          toast.error(errors.stackTrace);
-        } else {
-          toast.warning(errors.message);
-        }
-      }
+      handleErros(error);
     },
     refetchOnWindowFocus: false,
     enabled: request,

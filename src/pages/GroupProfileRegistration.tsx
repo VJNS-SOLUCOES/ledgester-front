@@ -8,7 +8,6 @@ import {
   GroupProfileDTO,
   GroupProfileConfigurationDTO,
   GroupProfileTableRequestDTO,
-  ErrorDTO,
 } from '../types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
@@ -16,8 +15,8 @@ import { funtionGroupsRequest, funtionTypesRequest, updateProfileGroupRequest } 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { buildProfileGroupScreenSchema } from '../schemas';
 import { useQuery, useQueryClient } from 'react-query';
-import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import { handleErros } from '../utils';
 
 const GroupProfileRegistration: React.FC = () => {
   const [search, setSearch] = useState<string>('');
@@ -38,12 +37,13 @@ const GroupProfileRegistration: React.FC = () => {
     register,
     getValues,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<GroupProfileTableRequestDTO>({
     mode: 'onSubmit',
     resolver: yupResolver(buildProfileGroupScreenSchema),
   });
-  console.log(updateGroupProfileConfiguration);
+
   useQuery('updateGroupProfile', () => updateProfileGroupRequest(updateGroupProfileConfiguration), {
     onSuccess: () => {
       setUpdateRequest(false);
@@ -54,20 +54,11 @@ const GroupProfileRegistration: React.FC = () => {
     },
     onError: (error: any) => {
       setRequest(false);
-      if (error instanceof AxiosError) {
-        const errors: ErrorDTO = error.response?.data.errors;
-        if (error.response === undefined) {
-          toast.error('Algo deu errado!');
-        } else if (errors.stackTrace !== '') {
-          toast.error(errors.stackTrace);
-        } else {
-          toast.warning(errors.message);
-        }
-      }
+      handleErros(error);
     },
     refetchOnWindowFocus: false,
     refetchOnMount: true,
-    enabled: false,
+    enabled: updateRequest,
   });
 
   const handleInitialRequest = async (): Promise<void> => {
@@ -107,7 +98,12 @@ const GroupProfileRegistration: React.FC = () => {
                   }
                 >
                   {functionGroups.map(element => (
-                    <MenuItem value={element.id}>{element.nome}</MenuItem>
+                    <MenuItem
+                      value={element.id}
+                      onClick={() => setValue('nomeGrupoUsuario', element.nome)}
+                    >
+                      {element.nome}
+                    </MenuItem>
                   ))}
                 </TextField>
                 <TextField

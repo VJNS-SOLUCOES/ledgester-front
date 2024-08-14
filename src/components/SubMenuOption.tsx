@@ -1,11 +1,9 @@
 import React from 'react';
-import { ErrorDTO, FunctionChildrenDto } from '../types';
+import { FunctionChildrenDto } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import { handleIcons } from '../utils';
+import { handleErros, handleIcons } from '../utils';
 import { serviceRequest } from '../services';
-import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
 import { useQuery, useQueryClient } from 'react-query';
 
 type Props = {
@@ -23,16 +21,7 @@ export const SubMenuOption: React.FC<Props> = ({ functionsOptions, mouseEnter, p
       navigate(functionsOptions.rotaFront, { state: response.data });
     },
     onError: error => {
-      if (error instanceof AxiosError) {
-        const errors: ErrorDTO = error.response?.data.errors;
-        if (error.response === undefined) {
-          toast.error('Algo deu errado!');
-        } else if (errors.stackTrace !== '') {
-          toast.error(errors.stackTrace);
-        } else {
-          toast.warning(errors.message);
-        }
-      }
+      handleErros(error);
     },
     refetchOnWindowFocus: false,
     refetchOnMount: true,
