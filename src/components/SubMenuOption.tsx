@@ -1,10 +1,13 @@
 import React from 'react';
-import { FunctionChildrenDto } from '../types';
+import { ErrorDTO, FunctionChildrenDto } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import { handleErros, handleIcons } from '../utils';
+import { handleIcons } from '../utils';
 import { serviceRequest } from '../services';
 import { useQuery, useQueryClient } from 'react-query';
+import { useAuth } from '../context/AuthContext';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 type Props = {
   mouseEnter: boolean;
@@ -16,12 +19,29 @@ type Props = {
 export const SubMenuOption: React.FC<Props> = ({ functionsOptions, mouseEnter, pathname, id }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { logout } = useAuth();
   useQuery(['serviceRequest', id], () => serviceRequest(functionsOptions.funcaoId), {
     onSuccess: response => {
-      navigate(functionsOptions.rotaFront, { state: response.data });
+      if (response.data.permissao.can_Search) {
+        navigate(functionsOptions.rotaFront, { state: response.data });
+      } else {
+        logout();
+        toast.error('Você não tem permissão para acessar essa rota.');
+      }
     },
     onError: error => {
-      handleErros(error);
+      if (error instanceof AxiosError) {
+        const errors: ErrorDTO = error.response?.data.errors;
+        if (error.response === undefined) {
+          toast.error('Algo deu errado!');
+        } else if (errors.message !== '') {
+          toast.error(errors.message);
+          if (error.response.status === 401) logout();
+        } else {
+          toast.warning(errors.stackTrace);
+        }
+      }
+      error;
     },
     refetchOnWindowFocus: false,
     refetchOnMount: true,

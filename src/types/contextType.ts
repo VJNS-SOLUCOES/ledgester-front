@@ -1,7 +1,7 @@
 import { UserDto } from './userDto';
 
-export type AuthContextType = {
+export interface AuthContextType {
   user: UserDto | undefined;
   login: (data: UserDto) => void;
   logout: () => void;
-};
+}

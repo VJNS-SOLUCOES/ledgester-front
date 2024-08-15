@@ -32,6 +32,11 @@ export type ParticularitiesDTO = {
   presenca_particularidade: boolean;
 };
 
+export type InputParticularitiesDTO = {
+  grupO_USUARIO_PARTICUL_ID: number;
+  presenca_particularidade: boolean;
+};
+
 export type GroupProfileTableRequestDTO = {
   grupoUsuarioId: number;
   nomeGrupoUsuario?: string;

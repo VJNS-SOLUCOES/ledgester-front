@@ -2,6 +2,7 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useS
 import { useNavigate } from 'react-router-dom';
 import { AuthContextType, UserDto } from '../types';
 import { LOGIN_PAGE, MAIN_PAGE } from '../configs';
+import { toast } from 'react-toastify';
 
 type Props = {
   children: React.ReactNode;
@@ -30,8 +31,12 @@ export const AuthContextProvider: React.FC<Props> = ({ children }) => {
 
   const login = useCallback((data: UserDto) => {
     setUser(data);
+    const userStorage = localStorage.getItem('user');
     localStorage.setItem('user', JSON.stringify(data));
-    navigate(MAIN_PAGE);
+    if (userStorage === null) {
+      toast.success('Login efetuado com sucesso.');
+      navigate(MAIN_PAGE);
+    }
   }, []);
 
   const logout = useCallback(() => {

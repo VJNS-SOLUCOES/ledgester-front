@@ -4,6 +4,7 @@ import {
   GroupProfileConfigurationDTO,
   GroupProfileTableDTO,
   GroupProfileTableRequestDTO,
+  InputParticularitiesDTO,
 } from '../types';
 import api from './api';
 
@@ -24,6 +25,14 @@ export const updateProfileGroupRequest = async (
   inputData: GroupProfileConfigurationDTO[],
 ): Promise<void> => {
   const { data } = await api.post('/CadastroPerfilDeGrupo/WebApi/Gravar', inputData);
+
+  return data;
+};
+
+export const particularitiesUpdateProfileGroupRequest = async (
+  inputData: InputParticularitiesDTO[],
+): Promise<void> => {
+  const { data } = await api.post('/CadastroPerfilDeGrupo/WebApi/GravarParticularidade', inputData);
 
   return data;
 };

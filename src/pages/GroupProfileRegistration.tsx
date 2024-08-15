@@ -8,6 +8,7 @@ import {
   GroupProfileDTO,
   GroupProfileConfigurationDTO,
   GroupProfileTableRequestDTO,
+  ErrorDTO,
 } from '../types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
@@ -16,7 +17,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { buildProfileGroupScreenSchema } from '../schemas';
 import { useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { handleErros } from '../utils';
+import { AxiosError } from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const GroupProfileRegistration: React.FC = () => {
   const [search, setSearch] = useState<string>('');
@@ -27,6 +29,8 @@ const GroupProfileRegistration: React.FC = () => {
   const [updateGroupProfileConfiguration, setUpdateGroupProfileConfiguration] = useState<
     GroupProfileConfigurationDTO[]
   >([]);
+
+  const { logout } = useAuth();
 
   const location = useLocation();
   const permitions = location.state as GroupProfileDTO;
@@ -47,14 +51,24 @@ const GroupProfileRegistration: React.FC = () => {
   useQuery('updateGroupProfile', () => updateProfileGroupRequest(updateGroupProfileConfiguration), {
     onSuccess: () => {
       setUpdateRequest(false);
-      queryClient.refetchQueries({ queryKey: 'login', exact: true });
-      queryClient.refetchQueries({ queryKey: 'serviceRequest', exact: true });
-      queryClient.refetchQueries({ queryKey: 'groupProfileTable', exact: true });
+      setUpdateGroupProfileConfiguration([]);
+      queryClient.refetchQueries('groupProfileTable');
       toast.success('Alterçãoes salvas!');
     },
     onError: (error: any) => {
       setRequest(false);
-      handleErros(error);
+      if (error instanceof AxiosError) {
+        const errors: ErrorDTO = error.response?.data.errors;
+        if (error.response === undefined) {
+          toast.error('Algo deu errado!');
+        } else if (errors.message !== '') {
+          toast.error(errors.message);
+          if (error.response.status === 401) logout();
+        } else {
+          toast.warning(errors.stackTrace);
+        }
+      }
+      error;
     },
     refetchOnWindowFocus: false,
     refetchOnMount: true,

@@ -6,6 +6,7 @@ import {
   LOGIN_PAGE,
   MAIN_PAGE,
   PROPERTIES_PAGE,
+  USER_REGISTRATION_PAGE,
 } from './configs';
 import './styles/index.css';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
@@ -19,6 +20,7 @@ import { AuthContextProvider } from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import GroupProfileRegistration from './pages/GroupProfileRegistration';
+import UserRegistration from './pages/UserRegistration';
 
 const queryClient = new QueryClient();
 
@@ -41,6 +43,7 @@ function App() {
                   path={GROUP_PROFILE_REGISTRATION_PAGE}
                   element={<GroupProfileRegistration />}
                 />
+                <Route path={USER_REGISTRATION_PAGE} element={<UserRegistration />} />
               </Route>
             </Routes>
           </AuthContextProvider>

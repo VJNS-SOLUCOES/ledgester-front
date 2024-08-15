@@ -1,15 +1,21 @@
 import React, { SetStateAction, useEffect, useState } from 'react';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import {
+  ErrorDTO,
   GroupProfileConfigurationDTO,
   GroupProfileDTO,
   GroupProfileTableDTO,
   GroupProfileTableRequestDTO,
+  InputParticularitiesDTO,
+  ParticularitiesDTO,
 } from '../types';
-import { groupProfileRequest } from '../services';
-import { Box, Button, Checkbox, Divider, Modal, Typography } from '@mui/material';
-import { firstCapitalLetters, handleErros } from '../utils';
+import { groupProfileRequest, particularitiesUpdateProfileGroupRequest } from '../services';
+import { Box, Button, Checkbox, Divider, Modal } from '@mui/material';
+import { firstCapitalLetters } from '../utils';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 type Props = {
   search: string;
@@ -31,6 +37,43 @@ export const GroupProfileTable: React.FC<Props> = ({
   setUpdateGroupProfileConfiguration,
 }) => {
   const [data, setData] = useState<GroupProfileTableDTO[]>();
+  const [particularitiesUpdateRequest, setParticularitiesUpdateRequest] = useState<boolean>(false);
+  const [inputParticularities, setInputParticularities] = useState<InputParticularitiesDTO[]>([]);
+
+  const { logout } = useAuth();
+
+  const queryClient = useQueryClient();
+
+  useQuery(
+    'particularitiesUpdate',
+    () => particularitiesUpdateProfileGroupRequest(inputParticularities),
+    {
+      onSuccess: () => {
+        setParticularitiesUpdateRequest(false);
+        setInputParticularities([]);
+        queryClient.refetchQueries('groupProfileTable');
+        toast.success('Alterçãoes salvas!');
+      },
+      onError: (error: any) => {
+        setRequest(false);
+        if (error instanceof AxiosError) {
+          const errors: ErrorDTO = error.response?.data.errors;
+          if (error.response === undefined) {
+            toast.error('Algo deu errado!');
+          } else if (errors.message !== '') {
+            toast.error(errors.message);
+            if (error.response.status === 401) logout();
+          } else {
+            toast.warning(errors.stackTrace);
+          }
+        }
+        error;
+      },
+      refetchOnWindowFocus: false,
+      refetchOnMount: true,
+      enabled: particularitiesUpdateRequest,
+    },
+  );
 
   const { isLoading } = useQuery(
     'groupProfileTable',
@@ -42,7 +85,18 @@ export const GroupProfileTable: React.FC<Props> = ({
       },
       onError: (error: any) => {
         setRequest(false);
-        handleErros(error);
+        if (error instanceof AxiosError) {
+          const errors: ErrorDTO = error.response?.data.errors;
+          if (error.response === undefined) {
+            toast.error('Algo deu errado!');
+          } else if (errors.message !== '') {
+            toast.error(errors.message);
+            if (error.response.status === 401) logout();
+          } else {
+            toast.warning(errors.stackTrace);
+          }
+        }
+        error;
       },
       refetchOnWindowFocus: false,
       refetchOnMount: true,
@@ -58,6 +112,37 @@ export const GroupProfileTable: React.FC<Props> = ({
     }
     return data;
   });
+
+  const handleParticularitiesCheckboxChange = (
+    particularity: ParticularitiesDTO,
+    checked: boolean,
+  ) => {
+    setInputParticularities((prevTeste: InputParticularitiesDTO[]) => {
+      const { desc_parametro, ...rest } = {
+        ...particularity,
+        presenca_particularidade: checked,
+      };
+
+      const exists = prevTeste.find(
+        item => item.grupO_USUARIO_PARTICUL_ID === particularity.grupO_USUARIO_PARTICUL_ID,
+      );
+      if (exists) {
+        if (particularity.presenca_particularidade === rest.presenca_particularidade) {
+          return prevTeste.filter(
+            item => item.grupO_USUARIO_PARTICUL_ID !== particularity.grupO_USUARIO_PARTICUL_ID,
+          );
+        }
+
+        return prevTeste.map(item =>
+          item.grupO_USUARIO_PARTICUL_ID === particularity.grupO_USUARIO_PARTICUL_ID
+            ? { ...exists, presenca_particularidade: checked }
+            : item,
+        );
+      } else {
+        return [...prevTeste, { ...rest }];
+      }
+    });
+  };
 
   const handleCheckboxChange = (row: GroupProfileTableDTO, field: string, checked: boolean) => {
     setUpdateGroupProfileConfiguration((prevTeste: GroupProfileConfigurationDTO[]) => {
@@ -203,10 +288,11 @@ export const GroupProfileTable: React.FC<Props> = ({
                     <p>Nome da Função: {row.desc_Funcao}</p>
                   </span>
                   <span className=" flex items-center gap-2">
-                    {row.particularidade.map(element => {
+                    {row.particularidade.map(particularity => {
                       const [checked, setChecked] = useState<boolean>(
-                        element.presenca_particularidade,
+                        particularity.presenca_particularidade,
                       );
+
                       return (
                         <>
                           <Checkbox
@@ -214,10 +300,14 @@ export const GroupProfileTable: React.FC<Props> = ({
                             checked={checked}
                             onChange={event => {
                               setChecked(event.target.checked);
+                              handleParticularitiesCheckboxChange(
+                                particularity,
+                                event.target.checked,
+                              );
                             }}
                           />
                           <p className="text-black/50">
-                            {firstCapitalLetters(element.desc_parametro)}
+                            {firstCapitalLetters(particularity.desc_parametro)}
                           </p>
                         </>
                       );
@@ -226,14 +316,18 @@ export const GroupProfileTable: React.FC<Props> = ({
                 </span>
                 <Divider />
                 <div className="flex px-4 gap-4">
-                  <Button
-                    variant="contained"
-                    sx={{
-                      borderRadius: 4,
-                    }}
-                  >
-                    Gravar
-                  </Button>
+                  {permitions.permissao.can_Save && (
+                    <Button
+                      disabled={inputParticularities.length <= 0}
+                      onClick={() => setParticularitiesUpdateRequest(true)}
+                      variant="contained"
+                      sx={{
+                        borderRadius: 4,
+                      }}
+                    >
+                      Gravar
+                    </Button>
+                  )}
                   <Button
                     onClick={() => setOpen(false)}
                     variant="outlined"
