@@ -3,15 +3,14 @@ import logo from '../assets/realStateLogoDark.svg';
 import { Button, TextField } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { LoginDto } from '../types';
+import { ErrorDTO, LoginDto } from '../types';
 import { useQuery } from 'react-query';
 import { authRequest } from '../services';
-import { AxiosError } from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { loginSchema } from '../schemas';
-import { toast } from 'react-toastify';
-import { ErrorDTO } from '../types/errorDto';
 import { ThreeDots } from 'react-loader-spinner';
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 
 const LoginPage: React.FC = () => {
   const [request, setRequest] = useState<boolean>(false);
@@ -27,11 +26,10 @@ const LoginPage: React.FC = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const { isLoading } = useQuery('login', () => authRequest(getValues()), {
-    onSuccess: respone => {
+  const { isLoading } = useQuery('loginRequest', () => authRequest(getValues()), {
+    onSuccess: response => {
       setRequest(false);
-      login(respone.data);
-      toast.success('Login efetuado com sucesso.');
+      login(response.data);
     },
     onError: (error: any) => {
       setRequest(false);
@@ -39,14 +37,16 @@ const LoginPage: React.FC = () => {
         const errors: ErrorDTO = error.response?.data.errors;
         if (error.response === undefined) {
           toast.error('Algo deu errado!');
-        } else if (errors.stackTrace !== '') {
-          toast.error(errors.stackTrace);
+        } else if (errors.message !== '') {
+          toast.error(errors.message);
         } else {
-          toast.warning(errors.message);
+          toast.warning(errors.stackTrace);
         }
       }
+      error;
     },
     refetchOnWindowFocus: false,
+    refetchOnMount: true,
     enabled: request,
     retry: false,
   });
@@ -98,10 +98,15 @@ const LoginPage: React.FC = () => {
               </div>
             </div>
             <Button
-              className="w-3/5 self-center"
+              className="w-3/5 h-10 self-center disabled:bg-primary !important"
               type="submit"
               variant="contained"
               disabled={isLoading}
+              sx={{
+                '&.MuiButton-root.Mui-disabled': {
+                  backgroundColor: '#0D245E',
+                },
+              }}
             >
               {isLoading ? (
                 <ThreeDots

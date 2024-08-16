@@ -56,6 +56,7 @@ export const MenuOptions: React.FC<Props> = ({
             return (
               <SubMenuOption
                 key={element.funcaoId}
+                id={element.funcaoId}
                 functionsOptions={element}
                 pathname={pathname}
                 mouseEnter={mouseEnter}

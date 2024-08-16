@@ -12,3 +12,14 @@ export const loginSchema = yup.object({
     .min(10, 'A senha deve ter no mínimo 10 caracteres')
     .max(100, 'A senha deve ter no máximo 100 caracteres'),
 });
+
+export const buildProfileGroupScreenSchema = yup.object({
+  grupoUsuarioId: yup
+    .number()
+    .required('O grupo de usuário é obrigatório')
+    .typeError('O grupo de usuário é obrigatório'),
+  tabTipofuncao_Id: yup
+    .number()
+    .required('O tipo de função é obrigatório')
+    .typeError('O tipo de função é obrigatório'),
+});
