@@ -72,6 +72,7 @@ const GroupProfileRegistration: React.FC = () => {
     },
     refetchOnWindowFocus: false,
     refetchOnMount: true,
+    retry: false,
     enabled: updateRequest,
   });
 

@@ -45,6 +45,7 @@ export const SubMenuOption: React.FC<Props> = ({ functionsOptions, mouseEnter, p
     },
     refetchOnWindowFocus: false,
     refetchOnMount: true,
+    retry: false,
     enabled: false,
   });
 
