@@ -26,19 +26,16 @@ const theme = createTheme(
         main: '#005D63',
       },
       primary: {
-        main: '#0D245E',
-      },
-      primary_variant: {
-        main: '#FFA889',
+        main: '#0078FF',
       },
       secondary: {
-        main: '#0051a8ff',
-      },
-      w_high: {
-        main: '#DDDDDD',
+        main: '#000000',
       },
       white: {
         main: '#FFFFFF',
+      },
+      w_high: {
+        main: '#DDDDDD',
       },
       white_transparent: {
         main: 'rgba(255, 255, 255, 0.3)',

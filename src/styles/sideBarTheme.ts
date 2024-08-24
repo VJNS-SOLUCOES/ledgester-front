@@ -21,7 +21,7 @@ const sideBarTheme = createTheme({
       styleOverrides: {
         root: {
           '&.MuiAccordionSummary-root': {
-            backgroundColor: `#0d245e !important`,
+            backgroundColor: `#0078FF !important`,
             padding: '0px 9px',
           },
           '& .MuiAccordionSummary-content.Mui-expanded': {
@@ -40,8 +40,8 @@ const sideBarTheme = createTheme({
       styleOverrides: {
         root: {
           '&.MuiAccordionDetails-root': {
-            backgroundColor: 'rgba(13,36,94,0.95)',
-            padding: '10px 0px',
+            backgroundColor: '#006CE5',
+            padding: '0px 0px',
           },
         },
       },

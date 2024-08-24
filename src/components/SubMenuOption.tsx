@@ -60,8 +60,10 @@ export const SubMenuOption: React.FC<Props> = ({ functionsOptions, mouseEnter, p
     <div className="flex items-center">
       <button className="cursor-pointer w-full" onClick={() => handleNavigate(id)}>
         <div
-          className={`pl-7 pr-3 active:animate-click hover:bg-black/30 ${
-            functionsOptions.rotaFront === pathname && mouseEnter && 'bg-black/30'
+          className={`pl-[50px] pr-3 active:animate-click hover:border-l-2 hover:border-l-w-high hover:bg-[#0060CC] ${
+            functionsOptions.rotaFront === pathname &&
+            mouseEnter &&
+            'bg-[#0060CC] border-l-w-high border-l-2'
           } flex items-center gap-3`}
         >
           {handleIcons(functionsOptions.icon_Funcao)}

@@ -21,7 +21,7 @@ export const Header: React.FC<Porps> = ({ expandedMenu, setExpandedMenu }) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    logout();
+    setAnchorEl(null);
   };
   return (
     <header className="h-16 flex w-full justify-between items-center bg-white">
@@ -39,7 +39,7 @@ export const Header: React.FC<Porps> = ({ expandedMenu, setExpandedMenu }) => {
         <NavBar />
       </div>
       <div className="flex h-5/6 px-4 gap-5 items-center">
-        <NotificationsIcon fontSize="large" className="text-secondary" />
+        <NotificationsIcon fontSize="large" className="text-primary" />
         <div className="flex items-center">
           <Typography>Samuel Santos</Typography>
           <Button id="basic-button" aria-haspopup="true" aria-expanded={open} onClick={handleClick}>
@@ -56,7 +56,7 @@ export const Header: React.FC<Porps> = ({ expandedMenu, setExpandedMenu }) => {
           >
             <MenuItem onClick={handleClose}>Gerenciar usuários</MenuItem>
             <MenuItem onClick={handleClose}>ALterar senha</MenuItem>
-            <MenuItem onClick={handleClose}>Sair</MenuItem>
+            <MenuItem onClick={() => logout()}>Sair</MenuItem>
           </Menu>
         </div>
       </div>
