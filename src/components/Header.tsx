@@ -39,7 +39,7 @@ export const Header: React.FC<Porps> = ({ expandedMenu, setExpandedMenu }) => {
         <NavBar />
       </div>
       <div className="flex h-5/6 px-4 gap-5 items-center">
-        <NotificationsIcon fontSize="large" className="text-primary" />
+        <NotificationsIcon fontSize="medium" className="text-primary" />
         <div className="flex items-center">
           <Typography>Samuel Santos</Typography>
           <Button id="basic-button" aria-haspopup="true" aria-expanded={open} onClick={handleClick}>

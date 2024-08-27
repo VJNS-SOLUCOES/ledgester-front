@@ -14,8 +14,14 @@ import {
   TextField,
   ThemeProvider,
 } from '@mui/material';
-import { createUserRequest, funtionGroupsRequest } from '../services';
-import { CreateUserDto, CreateUserGroupDto, ErrorDTO, FuntionGroup_TypeDTO } from '../types';
+import { createUserRequest, funtionGroupsRequest, serviceRequest } from '../services';
+import {
+  CreateUserDto,
+  CreateUserGroupDto,
+  ErrorDTO,
+  FuntionGroup_TypeDTO,
+  GroupProfileDTO,
+} from '../types';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
@@ -31,6 +37,7 @@ import registrationTheme from '../styles/registrationTheme';
 
 const UserRegistration: React.FC = () => {
   const [functionGroups, setFunctionGroups] = useState<FuntionGroup_TypeDTO[]>([]);
+  const [userGroupPermitions, setUserGroupPermitions] = useState<GroupProfileDTO>();
   const [visiblePassword, setVisiblePassword] = useState({
     password: false,
     confirmPassword: false,
@@ -42,8 +49,12 @@ const UserRegistration: React.FC = () => {
   const [createUserGroupData, setCreateUserGroupData] = useState<CreateUserGroupDto>();
 
   const handleInitialRequest = async (): Promise<void> => {
-    const [functionGroupsResponse] = await Promise.all([funtionGroupsRequest()]);
+    const [functionGroupsResponse, userGroupPermitionsResponse] = await Promise.all([
+      funtionGroupsRequest(),
+      serviceRequest(2),
+    ]);
     setFunctionGroups(functionGroupsResponse.data);
+    setUserGroupPermitions(userGroupPermitionsResponse.data);
   };
 
   const {
@@ -175,8 +186,7 @@ const UserRegistration: React.FC = () => {
                       </InputLabel>
                       <Datepicker
                         primaryColor="sky"
-                        popoverDirection="down"
-                        showFooter={true}
+                        popoverDirection="up"
                         asSingle={true}
                         useRange={false}
                         value={dateBirth}
@@ -203,7 +213,7 @@ const UserRegistration: React.FC = () => {
                       </FormHelperText>
                     </div>
                     <div className="flex items-end w-full gap-8">
-                      <div className="w-3/4 flex flex-col relative">
+                      <div className="w-full flex flex-col relative">
                         <InputLabel shrink>
                           <span className="flex items-center text-black/65 font-black gap-1">
                             <p className="uppercase">grupo</p>
@@ -213,8 +223,8 @@ const UserRegistration: React.FC = () => {
                         <TextField
                           select
                           {...register('grupo_Usuario_Id')}
-                          placeholder="Selecione o  grupo de permissionamento"
                           id="bootstrap-input"
+                          fullWidth
                           error={!!errors.grupo_Usuario_Id}
                         >
                           <MenuItem value="">Limpar</MenuItem>
@@ -228,18 +238,20 @@ const UserRegistration: React.FC = () => {
                           {errors.grupo_Usuario_Id?.message}
                         </FormHelperText>
                       </div>
-                      <Button
-                        className="w-1/4 h-10"
-                        variant="contained"
-                        onClick={() => setOpenModal(true)}
-                        sx={{
-                          '&.MuiButton-root.Mui-disabled': {
-                            backgroundColor: '#0D245E',
-                          },
-                        }}
-                      >
-                        Criar Grupo
-                      </Button>
+                      {userGroupPermitions?.permissao.can_Save && (
+                        <Button
+                          className="w-1/4 h-10"
+                          variant="outlined"
+                          onClick={() => setOpenModal(true)}
+                          sx={{
+                            '&.MuiButton-root.Mui-disabled': {
+                              backgroundColor: '#0D245E',
+                            },
+                          }}
+                        >
+                          Criar Grupo
+                        </Button>
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-col gap-8 w-1/2">
@@ -328,12 +340,14 @@ const UserRegistration: React.FC = () => {
                         {errors.confirmacaoSenha?.message}
                       </FormHelperText>
                     </div>
+                    <div className="flex justify-end items-end h-full">
+                      <span>
+                        <Button disabled={isLoading} type="submit" variant="contained">
+                          Salvar Cadastro
+                        </Button>
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className="justify-end flex">
-                  <Button disabled={isLoading} type="submit" variant="outlined">
-                    Salvar Cadastro
-                  </Button>
                 </div>
               </form>
             </div>

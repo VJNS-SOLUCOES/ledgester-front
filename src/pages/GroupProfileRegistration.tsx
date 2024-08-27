@@ -101,12 +101,13 @@ const GroupProfileRegistration: React.FC = () => {
           </div>
           <form className="bg-white gap-5 flex-col flex" onSubmit={handleSubmit(handleRequest)}>
             <div className="flex justify-between">
-              <div className=" w-1/2 gap-2 flex">
+              <div className="w-1/2 gap-2 flex">
                 <TextField
                   {...register('grupoUsuarioId')}
                   label="Grupo"
                   select
-                  className="w-1/3 flex"
+                  size="small"
+                  className="w-1/3 flex "
                   error={!!errors.grupoUsuarioId}
                   helperText={
                     errors.grupoUsuarioId && <small>{errors.grupoUsuarioId.message}</small>
@@ -125,6 +126,7 @@ const GroupProfileRegistration: React.FC = () => {
                   {...register('tabTipofuncao_Id')}
                   label="Função"
                   select
+                  size="small"
                   className="w-1/3 flex"
                   error={!!errors.tabTipofuncao_Id}
                   helperText={
@@ -135,7 +137,7 @@ const GroupProfileRegistration: React.FC = () => {
                     <MenuItem value={element.id}>{element.nome}</MenuItem>
                   ))}
                 </TextField>
-                <Button variant="contained" type="submit" className="h-14">
+                <Button variant="contained" type="submit">
                   Buscar
                 </Button>
               </div>
@@ -148,6 +150,7 @@ const GroupProfileRegistration: React.FC = () => {
                       </InputAdornment>
                     ),
                   }}
+                  size="small"
                   label="Função"
                   className="w-1/3"
                   onChange={event => setSearch(event.target.value)}

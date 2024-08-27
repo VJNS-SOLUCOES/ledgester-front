@@ -9,7 +9,7 @@ const iconMap: { [key: string]: React.ReactNode } = {
   MdPersonAddAlt1: <MdPersonAddAlt1 className="text-white text-lg" />,
   MdGroupAdd: <MdGroupAdd className="text-white text-lg" />,
   RiMoneyDollarCircleLine: <RiMoneyDollarCircleLine className="text-white text-2xl" />,
-  BsPersonFillLock: <BsPersonFillLock className="text-white text-lg" />,
+  BsPersonFillLock: <BsPersonFillLock className="text-white text-xl" />,
 };
 
 export const handleIcons = (iconName: string): React.ReactNode | null => {

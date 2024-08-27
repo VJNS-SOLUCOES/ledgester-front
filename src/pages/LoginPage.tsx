@@ -92,6 +92,7 @@ const LoginPage: React.FC = () => {
                   {...register('email')}
                   label="E-mail"
                   fullWidth
+                  size="small"
                   variant="outlined"
                   error={!!errors.email}
                 />
@@ -106,6 +107,7 @@ const LoginPage: React.FC = () => {
                   label="Senha"
                   {...register('password')}
                   id="bootstrap-input"
+                  size="small"
                   error={!!errors.password}
                   endAdornment={
                     <InputAdornment position="end">
@@ -153,9 +155,9 @@ const LoginPage: React.FC = () => {
         </div>
       </div>
       <div className="bg-white flex justify-around items-center">
-        <img className="h-[75px]" src={footerLogo} alt="LEDGESTER" />
-        <span className="text-black/60 flex text-xs sm:gap-4 sm:text-sm text-center">
+        <span className="text-black/60 flex text-xs sm:gap-4 sm:text-sm items-center w-full justify-around text-center">
           <p>Copyright© 2024 VJNS®</p>
+          <img className="h-[70px]" src={footerLogo} alt="LEDGESTER" />
           <p>Todos os direitos reservados.</p>
         </span>
       </div>
