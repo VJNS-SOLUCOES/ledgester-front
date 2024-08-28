@@ -1,11 +1,8 @@
-import { IconButton } from '@mui/material';
-import Logo from '../assets/realStateLogoDark.svg';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
-import { menuList } from '../helpers/menuList';
+import Logo from '../assets/LEDGESTER_Simbolo-Branco.png';
+import FullLogo from '../assets/LEDGESTER_Logo1-Branco-transp.png';
 import { MenuOptions, Header } from './index';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 type Props = {
   children: React.ReactNode;
@@ -13,46 +10,44 @@ type Props = {
 
 export const Wrapper: React.FC<Props> = ({ children }) => {
   const [mouseEnter, setMouseEnter] = useState<boolean>(false);
-
-  const navigate = useNavigate();
+  const [expandedMenu, setExpandedMenu] = useState<boolean>(false);
+  const { user } = useAuth();
 
   return (
     <div className="h-screen flex">
-      <header
-        className={`bg-primary relative w-20 overflow-hidden z-50 ${
-          mouseEnter && 'animate-ripple'
-        }`}
-        onMouseEnter={() => setMouseEnter(!mouseEnter)}
-        onMouseLeave={() => setMouseEnter(!mouseEnter)}
+      <nav
+        className="bg-primary relative z-50 w-auto"
+        onMouseEnter={() => setMouseEnter(true)}
+        onMouseLeave={() => setMouseEnter(false)}
       >
-        <ul className="flex flex-col py-2 gap-6 w-[305px]">
-          <li className="pl-2 flex items-center">
-            <span className="pl-1 pr-2">
-              <IconButton onClick={() => navigate(-1)}>
-                {mouseEnter ? (
-                  <KeyboardBackspaceIcon fontSize="large" className="text-white" />
-                ) : (
-                  <ListOutlinedIcon fontSize="large" className="text-white" />
-                )}
-              </IconButton>
-            </span>
-            <img className="w-28 mx-7" src={Logo} alt="HomeGyn" />
-          </li>
-          {menuList.map(element => (
-            <MenuOptions
-              key={element.key}
-              description={element.title}
-              menuIten={element.icon}
-              mouseEnter={mouseEnter}
-              route={element.route}
-            />
-          ))}
-        </ul>
-      </header>
-      <div className="absolute flex-col w-full pl-20">
-        <Header />
-        {children}
-      </div>
+        <div
+          className={`overflow-hidden ${expandedMenu ? 'w-[204px]' : 'w-[50px]'} ${
+            !expandedMenu && mouseEnter && 'animate-ripple'
+          }`}
+        >
+          <ul className="flex flex-col justify-center w-[204px]">
+            <li className="h-[50px] flex mt-[5px] mb-6 items-center">
+              {mouseEnter || expandedMenu ? (
+                <img className="h-[50px] animate-toRight" src={FullLogo} alt="LEDGESTER" />
+              ) : (
+                <img className="h-[33px] -translate-y-[0.5px] ml-2" src={Logo} alt="LEDGESTER" />
+              )}
+            </li>
+            {user?.menu.map(element => (
+              <MenuOptions
+                key={element.tab_Tipo_Funcao}
+                expandedMenu={expandedMenu}
+                description={element.desc_Tab_Tipo_Funcao}
+                menuIcon={element.icon}
+                mouseEnter={mouseEnter}
+                childrens={element.childrens}
+              />
+            ))}
+          </ul>
+        </div>
+      </nav>
+      <Header expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} />
+      <div className="absolute flex-col mt-16 w-full pl-12">{children}</div>
     </div>
   );
 };

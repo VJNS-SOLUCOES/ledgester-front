@@ -8,6 +8,7 @@ declare module '@mui/material' {
     w_high: true;
     white: true;
     white_transparent: true;
+    gray: true;
   }
 
   interface Palette {
@@ -18,6 +19,7 @@ declare module '@mui/material' {
     w_high?: Palette['primary'];
     white?: Palette['primary'];
     white_transparent?: Palette['primary'];
+    gray?: Palette['primary'];
   }
 
   interface PaletteOptions {
@@ -28,6 +30,7 @@ declare module '@mui/material' {
     w_high?: PaletteOptions['primary'];
     white?: PaletteOptions['primary'];
     white_transparent?: PaletteOptions['primary'];
+    gray?: PaletteOptions['primary'];
   }
 
   interface CheckboxPropsColorOverrides extends PropsColorOverrides {}

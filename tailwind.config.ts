@@ -2,32 +2,36 @@
 
 const colors = require('tailwindcss/colors');
 
-export const content = [
-  "./index.html",
-  "./src/**/*.{js,ts,jsx,tsx}",
-];
-export const theme = {
-   colors: {
+module.exports = {
+  darkMode: '',
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}',
+  ],
+  theme: {
+    colors: {
       ...colors,
+      primary: '#0078FF',
+      secondary: '#000000',
+      white: '#FFFFFF',
       alert: '#FFA217',
       orange: '#FD4F00',
       green: '#005D63',
-      primary: '#0D245E',
-      'primary-variant': '#FFA889',
-      secondary: '#0051A8FF',
       'w-high': '#DDDDDD',
-      'w-t30': 'rgba(255, 255, 255, 0.3)',
-      'w-t60': 'rgba(255, 255, 255, 0.6)',
-      white: '#FFFFFF',
       red: '#B70B0B',
       blue: '#135D99',
       'light-green': '#54B21A',
     },
-  extend: {
-     keyframes: {
+    extend: {
+      keyframes: {
+        toRight: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(1.5rem)' },
+        },
         ripple: {
           '0%': { width: '96px' },
-          '100%': { width: '305px' },
+          '100%': { width: '204px' },
         },
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
@@ -50,14 +54,15 @@ export const theme = {
           },
         },
       },
-    animation: {
-        ripple: 'ripple 1s ease 1 forwards',
+      animation: {
+        ripple: 'ripple 0.3s ease 1 forwards',
+        toRight: 'toRight 0.3s ease 1 forwards',
         wiggle: 'wiggle 1s ease-in-out infinite',
         opacityCustom: 'opacityCustom 0.5s ease-in-out',
         timeToReload: 'timeToReload 20s ease infinite',
         update: 'update 1s ease-in-out',
       },
+    },
   },
+  plugins: [],
 };
-export const plugins = [];
-

@@ -1,37 +1,70 @@
-import { Divider, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  ThemeProvider,
+  Typography,
+} from '@mui/material';
+import { useLocation } from 'react-router-dom';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { FunctionChildrenDto } from '../types/menuDto';
+import { handleIcons } from '../utils';
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { SubMenuOption } from './SubMenuOption';
+import sideBarTheme from '../styles/sideBarTheme';
 
 type Props = {
-  menuIten: React.ReactNode;
+  expandedMenu: boolean;
+  menuIcon: string;
   description: string;
   mouseEnter: boolean;
-  route: string;
+  childrens: FunctionChildrenDto[];
 };
 
-export const MenuOptions: React.FC<Props> = ({ menuIten, description, mouseEnter, route }) => {
-  const [hidden, setHidden] = useState<boolean>(false);
+export const MenuOptions: React.FC<Props> = ({
+  menuIcon,
+  description,
+  mouseEnter,
+  childrens,
+  expandedMenu,
+}) => {
+  const [expanded, setExpanded] = useState<string | false>(false);
   const { pathname } = useLocation();
 
-  const navigate = useNavigate();
+  const handleChange = (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
   return (
-    <div
-      className="flex items-center"
-      onMouseEnter={() => setHidden(!hidden)}
-      onMouseLeave={() => setHidden(!hidden)}
-    >
-      {(hidden || route === pathname) && (
-        <Divider orientation="vertical" className="bg-white py-6 w-[3px]" />
-      )}
-      <button className="cursor-pointer w-full" onClick={() => navigate(route)}>
-        <div className="pl-2 active:animate-click hover:bg-black/30 flex items-center gap-5">
-          <span className={`p-3 ${route === pathname && !mouseEnter && 'bg-black/30'} rounded-xl`}>
-            {menuIten}
-          </span>
-          <Typography className="text-white">{description}</Typography>
-        </div>
-      </button>
-    </div>
+    <ThemeProvider theme={sideBarTheme}>
+      <Accordion
+        expanded={!expandedMenu ? expanded === description && mouseEnter : expanded === description}
+        onChange={handleChange(description)}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          <div className="pl-1 flex items-center gap-4">
+            {handleIcons(menuIcon)}
+            <Typography className="text-white">{description}</Typography>
+          </div>
+        </AccordionSummary>
+        <AccordionDetails>
+          {childrens.map(element => {
+            return (
+              <SubMenuOption
+                key={element.funcaoId}
+                id={element.funcaoId}
+                functionsOptions={element}
+                pathname={pathname}
+                mouseEnter={mouseEnter}
+              />
+            );
+          })}
+        </AccordionDetails>
+      </Accordion>
+    </ThemeProvider>
   );
 };
