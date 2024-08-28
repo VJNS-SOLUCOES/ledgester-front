@@ -190,12 +190,6 @@ const UserRegistration: React.FC = () => {
                         asSingle={true}
                         useRange={false}
                         value={dateBirth}
-                        configs={{
-                          footer: {
-                            cancel: 'Cancelar',
-                            apply: 'Aplicar',
-                          },
-                        }}
                         onChange={newValue => {
                           setDateBirth(newValue);
                           newValue?.startDate
@@ -206,7 +200,7 @@ const UserRegistration: React.FC = () => {
                             : reset({ data_Nascimento: '' });
                         }}
                         displayFormat="DD/MM/YYYY"
-                        inputClassName="w-full border-[#cccccc90] border-2 rounded-md font-normal text-base hover:border-[#0048D9] p-2 "
+                        inputClassName="w-full border-[#cccccc90] border-2 rounded-md font-normal text-base hover:border-[#0048D9] p-2"
                       />
                       <FormHelperText className="absolute -bottom-6" error id="accountId-error">
                         {errors.data_Nascimento?.message}
