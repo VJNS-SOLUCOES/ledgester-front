@@ -16,23 +16,28 @@ export const Wrapper: React.FC<Props> = ({ children }) => {
   return (
     <div className="h-screen flex">
       <nav
-        className="bg-primary relative z-50 w-auto"
+        className="bg-primary relative z-50 w-auto flex"
         onMouseEnter={() => setMouseEnter(true)}
         onMouseLeave={() => setMouseEnter(false)}
       >
         <div
-          className={`overflow-hidden ${expandedMenu ? 'w-[204px]' : 'w-[50px]'} ${
-            !expandedMenu && mouseEnter && 'animate-ripple'
+          className={`overflow-hidden h-full flex flex-col gap-2 ${
+            expandedMenu || mouseEnter ? 'animate-ripple' : 'animate-rippleReverse'
           }`}
         >
-          <ul className="flex flex-col justify-center w-[204px]">
-            <li className="h-[50px] flex mt-[5px] mb-6 items-center">
-              {mouseEnter || expandedMenu ? (
-                <img className="h-[50px] animate-toRight" src={FullLogo} alt="LEDGESTER" />
-              ) : (
-                <img className="h-[33px] -translate-y-[0.5px] ml-2" src={Logo} alt="LEDGESTER" />
-              )}
-            </li>
+          <div className="h-[65px] flex items-center">
+            <img
+              className={mouseEnter || expandedMenu ? 'h-[50px] animate-toRight' : 'hidden'}
+              src={FullLogo}
+              alt="LEDGESTER"
+            />
+            <img
+              className={mouseEnter || expandedMenu ? 'hidden' : 'h-[33px] ml-2'}
+              src={Logo}
+              alt="LEDGESTER"
+            />
+          </div>
+          <div className="flex flex-col h-full relative gap-3 w-[270px]">
             {user?.menu.map(element => (
               <MenuOptions
                 key={element.tab_Tipo_Funcao}
@@ -43,7 +48,7 @@ export const Wrapper: React.FC<Props> = ({ children }) => {
                 childrens={element.childrens}
               />
             ))}
-          </ul>
+          </div>
         </div>
       </nav>
       <Header expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} />

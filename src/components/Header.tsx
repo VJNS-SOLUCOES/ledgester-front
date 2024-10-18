@@ -24,7 +24,7 @@ export const Header: React.FC<Porps> = ({ expandedMenu, setExpandedMenu }) => {
     setAnchorEl(null);
   };
   return (
-    <header className="h-16 flex w-full justify-between items-center bg-white">
+    <header className="h-16 w-full justify-between items-center sm:bg-white flex bg-primary">
       <div className="flex items-center">
         <IconButton
           onClick={() => setExpandedMenu(!expandedMenu)}
@@ -34,7 +34,7 @@ export const Header: React.FC<Porps> = ({ expandedMenu, setExpandedMenu }) => {
             },
           }}
         >
-          <MenuIcon fontSize="medium" className="text-primary" />
+          <MenuIcon fontSize="medium" className="sm:text-primary text-white" />
         </IconButton>
         <NavBar />
       </div>

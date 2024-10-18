@@ -7,3 +7,4 @@ export const PROPERTIES_PAGE = '/imoveis';
 export const FINANCIAL_PAGE = '/financeiro';
 export const GROUP_PROFILE_REGISTRATION_PAGE = '/cadPerfilGrupo';
 export const USER_REGISTRATION_PAGE = '/cadUsuario';
+export const PERSON_REGISTRATION_PAGE = '/cadPessoa';

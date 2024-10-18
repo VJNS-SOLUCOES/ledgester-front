@@ -48,7 +48,9 @@ export const MenuOptions: React.FC<Props> = ({
         >
           <div className="pl-1 flex items-center gap-4">
             {handleIcons(menuIcon)}
-            <Typography className="text-white">{description}</Typography>
+            {(expandedMenu || mouseEnter) && (
+              <Typography className="text-white">{description}</Typography>
+            )}
           </div>
         </AccordionSummary>
         <AccordionDetails>

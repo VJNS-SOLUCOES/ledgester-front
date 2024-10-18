@@ -2,7 +2,6 @@ import React from 'react';
 import { ErrorDTO, FunctionChildrenDto } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import { handleIcons } from '../utils';
 import { serviceRequest } from '../services';
 import { useQuery, useQueryClient } from 'react-query';
 import { useAuth } from '../context/AuthContext';
@@ -60,14 +59,13 @@ export const SubMenuOption: React.FC<Props> = ({ functionsOptions, mouseEnter, p
     <div className="flex items-center">
       <button className="cursor-pointer w-full" onClick={() => handleNavigate(id)}>
         <div
-          className={`pl-[50px] pr-3 active:animate-click hover:border-l-2 hover:border-l-w-high hover:bg-[#0060CC] ${
+          className={`px-4 py-2 justify-between border-b-[1px] border-b-black/5 active:animate-click hover:border-l-2 hover:border-l-w-high hover:bg-[#0060CC] ${
             functionsOptions.rotaFront === pathname &&
             mouseEnter &&
             'bg-[#0060CC] border-l-w-high border-l-2'
           } flex items-center gap-3`}
         >
-          {handleIcons(functionsOptions.icon_Funcao)}
-          <Typography className="text-white py-1 text-start" fontSize={14}>
+          <Typography className="text-white py-1 text-start" fontSize={15}>
             {functionsOptions.desc_Funcao}
           </Typography>
         </div>

@@ -1,7 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-const colors = require('tailwindcss/colors');
-
 module.exports = {
   darkMode: '',
   content: [
@@ -10,28 +8,36 @@ module.exports = {
     './node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}',
   ],
   theme: {
-    colors: {
-      ...colors,
-      primary: '#0078FF',
-      secondary: '#000000',
-      white: '#FFFFFF',
-      alert: '#FFA217',
-      orange: '#FD4F00',
-      green: '#005D63',
-      'w-high': '#DDDDDD',
-      red: '#B70B0B',
-      blue: '#135D99',
-      'light-green': '#54B21A',
-    },
     extend: {
+      colors: {
+        primary: '#0078FF',
+        secondary: '#000000',
+        white: '#FFFFFF',
+        alert: '#FFA217',
+        orange: '#FD4F00',
+        green: '#005D63',
+        'w-high': '#DDDDDD',
+        red: '#B70B0B',
+        blue: '#135D99',
+        'light-green': '#54B21A',
+        'light-blue': '#d5ebeb',
+      },
       keyframes: {
         toRight: {
           '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(1.5rem)' },
+          '100%': { transform: 'translateX(3.5rem)' },
+        },
+        toLeft: {
+          '0%': { transform: 'translateX(3.5rem)' },
+          '100%': { transform: 'translateX(0)' },
         },
         ripple: {
-          '0%': { width: '96px' },
-          '100%': { width: '204px' },
+          '0%': { width: '50px' },
+          '100%': { width: '270px' },
+        },
+        rippleReverse: {
+          '0%': { width: '270px' },
+          '100%': { width: '50px' },
         },
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
@@ -55,6 +61,8 @@ module.exports = {
         },
       },
       animation: {
+        toLeft: 'toLeft 0.3s ease 1 forwards',
+        rippleReverse: 'rippleReverse 0.3s ease 1 forwards',
         ripple: 'ripple 0.3s ease 1 forwards',
         toRight: 'toRight 0.3s ease 1 forwards',
         wiggle: 'wiggle 1s ease-in-out infinite',

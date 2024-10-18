@@ -42,7 +42,7 @@ const sideBarTheme = createTheme({
           '&.MuiAccordionDetails-root': {
             backgroundColor: '#006CE5',
             padding: '0px 0px',
-            boxShadow: 'inset 0px 0px 42px -30px rgba(0,0,0,1)',
+            boxShadow: 'inset 0px 0px 42px -35px rgba(0,0,0,1)',
           },
         },
       },
