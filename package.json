@@ -10,8 +10,15 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/ui": "^2.19.2",
+    "@sidebase/nuxt-pdf": "^1.0.0-alpha.0",
+    "@vuepic/vue-datepicker": "^10.0.0",
+    "axios": "^1.7.7",
+    "maska": "2.1.9",
     "nuxt": "^3.14.0",
+    "sweetalert2": "^11.14.5",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "vue-slider-component": "^3.2.24"
   }
 }
