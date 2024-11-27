@@ -1,8 +1,9 @@
 import axios from 'axios';
 import type { AxiosInstance } from 'axios';
+const config = useRuntimeConfig();
 
 const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.BASE_URL,
+  baseURL: config.public.baseUrl,
 });
 
 api.interceptors.request.use(

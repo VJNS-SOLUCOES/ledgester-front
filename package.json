@@ -4,21 +4,27 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --port=3000",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/image": "^1.8.1",
     "@nuxt/ui": "^2.19.2",
+    "@pinia/nuxt": "^0.7.0",
     "@sidebase/nuxt-pdf": "^1.0.0-alpha.0",
     "@vuepic/vue-datepicker": "^10.0.0",
+    "add": "^2.0.6",
     "axios": "^1.7.7",
     "maska": "2.1.9",
     "nuxt": "^3.14.0",
+    "pinia": "^2.2.6",
+    "pinia-plugin-persistedstate": "^4.1.3",
     "sweetalert2": "^11.14.5",
     "vue": "latest",
     "vue-router": "latest",
-    "vue-slider-component": "^3.2.24"
+    "yarn": "^1.22.22",
+    "zod": "^3.23.8"
   }
 }

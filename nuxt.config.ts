@@ -2,7 +2,13 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: [['@nuxt/ui', { global: true }], '@sidebase/nuxt-pdf'],
+  modules: [
+    ['@nuxt/ui', { global: true }],
+    '@sidebase/nuxt-pdf',
+    '@nuxt/image',
+    '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
+  ],
 
   ssr: false,
 
