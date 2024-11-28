@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        card: '0px 4px 14px 0px rgba(0, 0, 0, 0.10);',
+        card: '0px 0px 15px 1px rgba(0, 0, 0, 0.15)',
       },
       maxWidth: {
         '8xl': '82.5rem',
@@ -43,17 +43,13 @@ module.exports = {
         },
       },
       keyframes: {
-        toRight: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(1.5rem)' },
-        },
         open: {
-          '0%': { width: '96px' },
+          '0%': { width: '80px' },
           '100%': { width: '300px' },
         },
         retract: {
           '0%': { width: '300px' },
-          '100%': { width: '96px' },
+          '100%': { width: '80px' },
         },
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
@@ -62,6 +58,14 @@ module.exports = {
         timeToReload: {
           '0%': { width: 0, opacity: 0 },
           '100%': { width: '100%', opacity: 0.6 },
+        },
+        spin: {
+          from: {
+            transform: 'rotate(0deg)',
+          },
+          to: {
+            transform: 'rotate(180deg)',
+          },
         },
         appear: {
           '0%': {
@@ -79,15 +83,61 @@ module.exports = {
             opacity: 0,
           },
         },
+        'fly-in': {
+          '0%': {
+            opacity: '0',
+            transform: 'scale3d(0.3, 0.3, 0.3)',
+            transitionTimingFunction: 'cubic-bezier(0.215, 0.61, 0.355, 1)',
+          },
+          '20%': {
+            transform: 'scale3d(1.1, 1.1, 1.1)',
+          },
+          '40%': {
+            transform: 'scale3d(0.9, 0.9, 0.9)',
+          },
+          '60%': {
+            opacity: '1',
+            transform: 'scale3d(1.03, 1.03, 1.03)',
+          },
+          '80%': {
+            transform: 'scale3d(0.97, 0.97, 0.97)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'scale3d(1.1, 1.1, 1.1)',
+          },
+        },
+        shake: {
+          '0%, 100%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(-15deg)' },
+          '50%': { transform: 'rotate(15deg)' },
+          '75%': { transform: 'rotate(-10deg)' },
+        },
+        'zoom-in': {
+          '0%': {
+            opacity: 0,
+            transform: 'scale3d(0.3, 0.3, 0.3)',
+          },
+          '80%': {
+            opacity: 0.8,
+            transform: 'scale3d(1.1, 1.1, 1.1)',
+          },
+          '100%': {
+            opacity: 1,
+          },
+        },
       },
       animation: {
-        open: 'open 0.3s ease 1 forwards',
+        open: 'open 0.2s ease 1 forwards',
         retract: 'retract 0.3s ease 1 forwards',
-        toRight: 'toRight 0.3s ease 1 forwards',
         wiggle: 'wiggle 1s ease-in-out infinite',
+        spin: 'spin 0.6s ease forwards',
         timeToReload: 'timeToReload 20s ease infinite',
         appear: 'appear 0.3s ease-in-out forwards',
-        disappear: 'disappear 0.1s ease-in-out forwards',
+        disappear: 'disappear 0.2s ease-in-out forwards',
+        flyin: 'fly-in 0.4s ease-in-out 1 forwards',
+        shake: 'shake 0.5s ease-in-out forwards',
+        zoomIn: 'zoom-in 0.5s ease-out 1 forwards',
       },
     },
   },

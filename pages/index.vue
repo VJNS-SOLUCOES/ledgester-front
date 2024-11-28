@@ -30,7 +30,7 @@ const onSubmit = async () => {
 
     isLoading.value = false;
 
-    navigateTo('gen-grupo');
+    navigateTo('usuario/gen-grupo');
   } catch (error: any) {
     const errors: ErrorDTO = error.response?.data.errors;
     if (error.response === undefined) {

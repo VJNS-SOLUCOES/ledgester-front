@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       title: 'Ledgester',
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      link: [{ rel: 'icon', type: 'image/png', href: 'LEDGESTER_Simbolo-Azul.png' }],
+      link: [{ rel: 'icon', type: 'image/png', href: '/LEDGESTER_Simbolo-Azul.png' }],
       meta: [
         {
           hid: 'description',
