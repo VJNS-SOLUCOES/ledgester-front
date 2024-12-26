@@ -6,13 +6,15 @@ const api: AxiosInstance = axios.create({
   baseURL: config.public.baseUrl,
 });
 
+const userData = JSON.parse(localStorage.getItem('@LEDGESTER/user-store') || '');
+
 api.interceptors.request.use(
   (request: any) => {
     return {
       ...request,
       headers: {
         ...request.headers,
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     };
   },

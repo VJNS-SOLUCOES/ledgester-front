@@ -27,10 +27,11 @@ const onSubmit = async () => {
     });
 
     userStore.setData(response.data);
-
     isLoading.value = false;
 
-    navigateTo('usuario/gen-grupo');
+    const initialFunctionId = response.data.menu[0].childrens[0].funcaoId;
+
+    navigateTo(`usuario/gen-grupo-4`);
   } catch (error: any) {
     const errors: ErrorDTO = error.response?.data.errors;
     if (error.response === undefined) {

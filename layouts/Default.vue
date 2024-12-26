@@ -1,22 +1,56 @@
 <script setup lang="ts">
 import { useUserStore } from '~/store';
+import { watch } from 'vue';
 
+const route = useRoute();
 const userStore = useUserStore();
 const mouseEnterMenu = ref<boolean | null>(null);
 const menuIsPined = ref(true);
+const title = ref('');
+const links = ref();
+const children = ref();
 
 const pinMenu = () => {
   menuIsPined.value = !menuIsPined.value;
 };
 
-const links = userStore.menu?.map((element) => {
-  return {
-    label: element.desc_Tab_Tipo_Funcao,
-    icon: element.icon,
-    functionTypeId: element.tab_Tipo_Funcao,
-    childrens: element.childrens,
-  };
-});
+const updateMenu = () => {
+  links.value = userStore.menu?.map((element) => {
+    const isActive = route.path.includes(element.rotaPaiFront);
+
+    return {
+      label: element.desc_Tab_Tipo_Funcao,
+      icon: element.icon,
+      functionTypeId: element.tab_Tipo_Funcao,
+      childrens: element.childrens,
+      to: `${element.rotaPaiFront}${element.childrens[0].rotaFront}`,
+      active: isActive,
+    };
+  });
+
+  children.value = userStore.menu?.flatMap((element) => {
+    const child = route.path.includes(element.rotaPaiFront) ? element.childrens : [];
+
+    return child.flatMap((childElement) => {
+      const isActive = route.path.includes(childElement.rotaFront);
+      return {
+        label: childElement.desc_Funcao,
+        icon: childElement.icon_Funcao,
+        functionId: childElement.funcaoId,
+        to: `${element.rotaPaiFront}${childElement.rotaFront}`,
+        active: isActive,
+      };
+    });
+  });
+
+  title.value =
+    userStore.menu?.find((element) => route.path.includes(element.rotaPaiFront))
+      ?.desc_Tab_Tipo_Funcao || '';
+};
+
+updateMenu();
+
+watch([() => route.path, () => userStore.menu], updateMenu);
 </script>
 <template>
   <div class="bg-secondary_light-200 relative flex">
@@ -41,10 +75,6 @@ const links = userStore.menu?.map((element) => {
           class="h-[60px]"
           :class="{ 'animate-appear': mouseEnterMenu, hidden: !mouseEnterMenu }"
         />
-        <!-- <SideBarButton
-          :icon="menuIsPined ? 'i-mdi-pin-outline' : 'i-mdi-pin-off-outline'"
-          :style="mouseEnterMenu ? 'animate-appear' : 'hidden'"
-        /> -->
         <UButton
           size="sm"
           :ui="{
@@ -77,7 +107,7 @@ const links = userStore.menu?.map((element) => {
         :links="links"
       >
         <template #icon="{ link }">
-          <div>
+          <div class="flex">
             <UIcon :name="link.icon" class="w-6 h-6" />
           </div>
         </template>
@@ -95,30 +125,13 @@ const links = userStore.menu?.map((element) => {
     </div>
     <div class="h-screen w-full flex-1 flex flex-col gap-10" :class="{ 'pl-20': menuIsPined }">
       <div class="p-8 gap-4 flex flex-col">
-        <h1 class="text-2xl font-bold text-gray-600">Usuário</h1>
-        <div class="bg-secondary_light-200 w-full px-2 rounded-xl shadow-card">
-          <UHorizontalNavigation
-            :links="links"
-            class="border-b border-gray-200 dark:border-gray-800"
-          />
-        </div>
+        <NavBar :title="title" :child="children" />
+        <slot />
       </div>
     </div>
     <div class="bg-secondary_light h-screen w-16 shadow-lg items-center flex flex-col py-8 gap-6">
       <div class="flex w-full h-[73px] justify-center items-center">
-        <!-- <UTooltip
-          :ui="{
-            background: 'bg-main dark:bg-gray-900',
-            color: 'text-secondary_light-200 dark:text-white',
-            arrow: {
-              background: 'before:bg-main dark:before:bg-gray-800',
-            },
-          }"
-          :text="userStore.user?.nomeUsuario"
-          :popper="{ placement: 'left', arrow: true }"
-        > -->
         <UIcon name="i-material-symbols-account-circle" class="w-12 h-12 text-tertiary_light-300" />
-        <!-- </UTooltip> -->
       </div>
       <UDivider class="px-2" />
       <div class="flex flex-col items-center gap-6 py-4">
@@ -155,9 +168,9 @@ const links = userStore.menu?.map((element) => {
               />
             </template>
           </UButton>
-          <span
+          <!-- <span
             class="bg-orange-500 w-[10px] h-[10px] animate-zoomIn absolute rounded-full flex top-0 right-0"
-          />
+          /> -->
         </span>
       </div>
     </div>

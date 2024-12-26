@@ -1,6 +1,7 @@
 export type MenuDto = {
   tab_Tipo_Funcao: number;
   desc_Tab_Tipo_Funcao: string;
+  rotaPaiFront: string;
   icon: string;
   childrens: ChildrenDto[];
 };
