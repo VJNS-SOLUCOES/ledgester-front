@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { loginSchema } from '~/schemas/loginSchema';
+import { loginSchema } from '~/schemas';
 import api from '~/services/api';
 import { useUserStore } from '~/store';
-import type { DefaultResponseDto, ErrorDTO } from '~/types/defaultResponse';
-import type { LoginDto } from '~/types/login';
-import type { UserDto } from '~/types/user';
+import type { LoginDto, UserDto, DefaultResponseDto, ErrorDto } from '~/types';
 
 definePageMeta({
   layout: false,
@@ -29,11 +27,9 @@ const onSubmit = async () => {
     userStore.setData(response.data);
     isLoading.value = false;
 
-    const initialFunctionId = response.data.menu[0].childrens[0].funcaoId;
-
     navigateTo(`usuario/gen-grupo-4`);
   } catch (error: any) {
-    const errors: ErrorDTO = error.response?.data.errors;
+    const errors: ErrorDto = error.response?.data.errors;
     if (error.response === undefined) {
       swalError({ title: 'Oops..', text: 'Algo deu errado!' });
     } else if (errors.message !== '') {

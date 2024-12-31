@@ -40,7 +40,7 @@ export type InputParticularitiesDTO = {
 export type GroupProfileTableRequestDTO = {
   grupoUsuarioId: number;
   nomeGrupoUsuario?: string;
-  tabTipofuncao_Id: number;
+  tabTipofuncao_Id?: number;
 };
 
 export type FuntionGroup_TypeDTO = {

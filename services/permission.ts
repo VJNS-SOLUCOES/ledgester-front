@@ -1,5 +1,4 @@
-import type { DefaultResponseDto, ErrorDTO } from '~/types/defaultResponse';
-import type { GroupProfileDTO } from '~/types/groupProfile';
+import type { DefaultResponseDto, ErrorDto, GroupProfileDTO } from '~/types';
 import api from '~/services/api';
 import { AxiosError } from 'axios';
 
@@ -22,7 +21,7 @@ export const serviceRequest = async (funcaoId: string) => {
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      const errors: ErrorDTO = error.response?.data.errors;
+      const errors: ErrorDto = error.response?.data.errors;
       if (error.response === undefined) {
         swalError({ title: 'Ops..', text: 'Algo deu errado!' });
       } else if (errors.message !== '') {

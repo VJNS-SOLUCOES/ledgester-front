@@ -113,7 +113,7 @@ watch([() => route.path, () => userStore.menu], updateMenu);
         </template>
         <template #default="{ link }">
           <span
-            class="relative opacity-0 flex"
+            class="relative animate-disappear opacity-0 flex"
             :class="{
               'animate-flyin': mouseEnterMenu,
               'animate-disappear': mouseEnterMenu === false,
@@ -124,7 +124,7 @@ watch([() => route.path, () => userStore.menu], updateMenu);
       </UVerticalNavigation>
     </div>
     <div class="h-screen w-full flex-1 flex flex-col gap-10" :class="{ 'pl-20': menuIsPined }">
-      <div class="p-8 gap-4 flex flex-col">
+      <div class="p-8 gap-8 flex flex-col">
         <NavBar :title="title" :child="children" />
         <slot />
       </div>

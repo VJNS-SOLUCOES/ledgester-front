@@ -1,10 +1,10 @@
 export type DefaultResponseDto<T> = {
   success: boolean;
   data: T;
-  errors: ErrorDTO;
+  errors: ErrorDto;
 };
 
-export type ErrorDTO = {
+export type ErrorDto = {
   message: string;
   stackTrace: string;
 };

@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
-import type { MenuDto } from '~/types/menu';
-import type { UserDto } from '~/types/user';
+import type { MenuDto, UserDto } from '~/types';
 
 export const useUserStore = defineStore('user-store', {
   state: () => ({
