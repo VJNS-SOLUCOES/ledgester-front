@@ -1,12 +1,20 @@
 <script setup lang="ts">
+const emit = defineEmits(['update:modelValue', 'submitForm']);
 const props = defineProps({
   defaultOpen: { type: Boolean, required: false, default: false },
-  modelValue: { type: String, required: false },
+  modelValue: { type: String, required: true },
 });
 
 const open = ref<boolean>(props.defaultOpen);
 const overflowClass = ref(open.value ? 'overflow-visible' : 'overflow-hidden');
 const contentRefs = ref<HTMLDivElement>();
+const searchValue = ref<string>(props.modelValue);
+
+const hadleInputClick = () => {
+  emit('submitForm');
+  if (searchValue.value.length >= 3 || searchValue.value === '')
+    emit('update:modelValue', searchValue.value);
+};
 
 const contentHeight = () => {
   return contentRefs.value?.scrollHeight + 'px';
@@ -42,10 +50,10 @@ watch(open, (newValue) => {
       }"
       placeholder="Pesquisar"
       size="xl"
-      v-model="props.modelValue"
+      v-model="searchValue"
     >
       <template #trailing>
-        <div class="flex gap-4 h-full py-2">
+        <div class="flex gap-3 h-full pr-2 py-2">
           <UDivider orientation="vertical" />
           <UCheckbox
             :ui="{
@@ -67,7 +75,7 @@ watch(open, (newValue) => {
             icon="i-material-symbols-search-rounded"
             :padded="false"
             type="button"
-            @click="$emit('submitForm')"
+            @click="hadleInputClick()"
           />
         </div>
       </template>

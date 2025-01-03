@@ -26,7 +26,7 @@ export const swalError = ({ title, text }: SwalAlert) => {
     text,
     icon: 'error',
     showConfirmButton: false,
-    timer: 3000,
+    timer: 4000,
     timerProgressBar: true,
     customClass: {
       timerProgressBar: 'bg-red-500',
@@ -41,7 +41,7 @@ export const swalWarning = ({ title, text }: SwalAlert) => {
     text,
     icon: 'warning',
     showConfirmButton: false,
-    timer: 2000,
+    timer: 3000,
     timerProgressBar: true,
     customClass: {
       timerProgressBar: 'bg-orange-500',

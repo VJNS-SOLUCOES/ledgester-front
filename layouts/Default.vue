@@ -168,9 +168,9 @@ watch([() => route.path, () => userStore.menu], updateMenu);
               />
             </template>
           </UButton>
-          <!-- <span
+          <span
             class="bg-orange-500 w-[10px] h-[10px] animate-zoomIn absolute rounded-full flex top-0 right-0"
-          /> -->
+          />
         </span>
       </div>
     </div>
