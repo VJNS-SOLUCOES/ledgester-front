@@ -53,6 +53,14 @@ module.exports = {
           '0%': { width: '300px' },
           '100%': { width: '80px' },
         },
+        openRightBar: {
+          '0%': { width: '64px' },
+          '100%': { width: '350px' },
+        },
+        retractRightBar: {
+          '0%': { width: '350px' },
+          '100%': { width: '64px' },
+        },
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
           '50%': { transform: 'rotate(3deg)' },
@@ -133,10 +141,12 @@ module.exports = {
       animation: {
         open: 'open 0.2s ease 1 forwards',
         retract: 'retract 0.3s ease 1 forwards',
+        openRightBar: 'openRightBar 0.3s ease 1 forwards',
+        retractRightBar: 'retractRightBar 0.3s ease 1 forwards',
         wiggle: 'wiggle 1s ease-in-out infinite',
         spin: 'spin 0.6s ease forwards',
         timeToReload: 'timeToReload 20s ease infinite',
-        appear: 'appear 0.3s ease-in-out forwards',
+        appear: 'appear 0.4s ease-in-out forwards',
         disappear: 'disappear 0.2s ease-in-out forwards',
         flyin: 'fly-in 0.4s ease-in-out 1 forwards',
         shake: 'shake 0.5s ease-in-out forwards',
