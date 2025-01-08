@@ -270,7 +270,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="w-full flex gap-7 flex-col">
+  <div class="w-full flex gap-7 flex-col h-full">
     <div class="flex flex-col gap-4">
       <UForm ref="parentForm" @submit="onSubmit" :state="state">
         <SearchBar @submitForm="submitForm" :defaultOpen="true" v-model="searchValue">
@@ -332,7 +332,7 @@ onMounted(() => {
       </UForm>
     </div>
     <div
-      class="min-h-96 justify-between bg-white flex flex-col shadow-card rounded-lg px-5 gap-5 py-5"
+      class="min-h-[80%] justify-between bg-white flex flex-col shadow-card rounded-lg px-5 gap-5 py-5"
     >
       <div class="gap-5 flex flex-col h-full">
         <span>
