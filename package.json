@@ -10,7 +10,6 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt/image": "^1.8.1",
     "@nuxt/ui": "^2.19.2",
     "@pinia/nuxt": "^0.7.0",
     "@sidebase/nuxt-pdf": "^1.0.0-alpha.0",

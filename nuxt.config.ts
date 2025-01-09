@@ -4,7 +4,6 @@ export default defineNuxtConfig({
   modules: [
     ['@nuxt/ui', { global: true }],
     '@sidebase/nuxt-pdf',
-    '@nuxt/image',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
   ],
@@ -29,9 +28,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-
-  // @ts-ignore
-  target: 'static',
 
   css: ['~/assets/css/global.css'],
   plugins: ['~/plugins/plugins.ts'],

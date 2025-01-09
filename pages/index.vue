@@ -53,7 +53,7 @@ onMounted(() => {
       @submit="onSubmit"
       class="bg-secondary_light flex justify-center items-center flex-col rounded-3xl shadow-card w-[500px] gap-8 p-8"
     >
-      <NuxtImg src="/LEDGESTER_Simbolo.png" />
+      <img src="/LEDGESTER_Simbolo.png" />
       <div class="flex justify-center items-center flex-col gap-2">
         <h1 class="text-3xl font-semibold text-tertiary_light">Login</h1>
         <h2 class="text-xs font-medium text-main-300">Insira suas credenciais de acesso</h2>

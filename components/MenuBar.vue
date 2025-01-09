@@ -33,12 +33,12 @@ const pinLeftBar = () => {
     v-on:mouseleave="!pinedValue ? '' : (mouseEnterLeftBar = false)"
   >
     <div class="flex w-full h-[73px] gap-2 justify-center items-center">
-      <NuxtImg
+      <img
         src="/LEDGESTER_Simbolo.png"
         class="h-10"
         :class="{ 'animate-disappear': mouseEnterLeftBar, hidden: mouseEnterLeftBar }"
       />
-      <NuxtImg
+      <img
         src="/LEDGESTER_Logo1-transp.png"
         class="h-[60px]"
         :class="{ 'animate-appear': mouseEnterLeftBar, hidden: !mouseEnterLeftBar }"
