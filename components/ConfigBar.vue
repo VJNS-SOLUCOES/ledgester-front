@@ -91,14 +91,14 @@ watch(open, () => {
             <SideBarButton
               :size="open ? 'xl' : 'sm'"
               icon="i-icon-park-outline-config"
-              animation="animate-spin"
+              animate="hover:animate-spin"
               @handle-click="handleOpenConfigPanel()"
             />
             <span class="relative">
               <SideBarButton
                 :size="open ? 'xl' : 'sm'"
                 icon="i-ion-notifications"
-                animation="animate-shake"
+                animate="hover:animate-shake"
               />
               <span
                 class="bg-orange-500 w-[10px] h-[10px] animate-zoomIn absolute rounded-full flex top-0 right-0"

@@ -24,5 +24,6 @@ logs
 !.env.example
 
 #firebase
+.firebase
 .firebaserc
 firebase.json

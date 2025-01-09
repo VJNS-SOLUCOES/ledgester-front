@@ -12,7 +12,7 @@ defineProps({
     type: String as PropType<Size>,
     required: true,
   },
-  animation: {
+  animate: {
     type: String,
     required: false,
   },
@@ -42,7 +42,7 @@ const emit = defineEmits(['handleClick']);
     @click="emit('handleClick')"
   >
     <template #leading>
-      <UIcon :name="icon" :class="'hover:' + animation" class="w-5 h-5 m-1 text-gray-500" />
+      <UIcon :name="icon" :class="animate" class="w-5 h-5 m-1 text-gray-500" />
     </template>
   </UButton>
 </template>

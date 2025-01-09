@@ -6,6 +6,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev --port=3000",
     "generate": "nuxt generate",
+    "firebasedeploy": "nuxt generate && firebase deploy",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
