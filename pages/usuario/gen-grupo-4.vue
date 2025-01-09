@@ -280,7 +280,7 @@ onMounted(() => {
               text="O grupo de usuário é obrigatório"
               :popper="{ arrow: true, placement: 'bottom-start' }"
             >
-              <UIcon class="w-5 h-5 self-center text-orange-400" name="i-ep-info-filled" />
+              <UIcon class="w-5 h-5 self-center text-orange-400" name="i-ion-information-circle" />
             </UTooltip>
             <USelectMenu
               :ui="{
@@ -360,7 +360,7 @@ onMounted(() => {
 
           <template #loading-state>
             <div class="gap-2 flex-col text-gray-400 flex items-center justify-center min-h-96">
-              <UIcon class="w-8 h-8 animate-spin" name="i-line-md-loading-twotone-loop" />
+              <UIcon class="w-8 h-8 animate-spin" name="i-octicon-sync-24" />
               <p>loading...</p>
             </div>
           </template>
@@ -475,7 +475,7 @@ onMounted(() => {
           <UButton
             color="gray"
             variant="ghost"
-            icon="i-heroicons-x-mark-20-solid"
+            icon="i-material-symbols-close-rounded"
             class="-my-1"
             @click="isOpenModal = false"
           />

@@ -23,7 +23,7 @@ const pinLeftBar = () => {
 </script>
 <template>
   <div
-    class="bg-secondary_light z-50 h-screen w-20 shadow-lg flex flex-col py-8 gap-8"
+    class="bg-secondary_light overflow-hidden z-50 h-screen w-20 shadow-lg flex flex-col py-8 gap-8"
     :class="{
       'animate-open': mouseEnterLeftBar && mouseEnterLeftBar !== null,
       'animate-retract': !mouseEnterLeftBar && mouseEnterLeftBar !== null,

@@ -71,13 +71,13 @@ onMounted(() => {
           />
           <UIcon
             v-if="!visiblePassword"
-            name="i-mdi-eye-outline"
+            name="i-material-symbols-visibility-outline-rounded"
             class="w-5 h-5 text-gray-400 absolute right-3 top-[10px] cursor-pointer"
             @click="visiblePassword = true"
           />
           <UIcon
             v-else
-            name="i-mdi-eye-off-outline"
+            name="i-material-symbols-visibility-off-outline-rounded"
             class="w-5 h-5 text-gray-400 absolute right-3 top-[10px] cursor-pointer"
             @click="visiblePassword = false"
           />

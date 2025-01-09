@@ -965,6 +965,34 @@
   dependencies:
     "@iconify/types" "*"
 
+"@iconify-json/icon-park-outline@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@iconify-json/icon-park-outline/-/icon-park-outline-1.2.2.tgz#382945d5e58f5f9488561614ff480c9fa04674d4"
+  integrity sha512-7VkMWOZTIMNkC9+oAL4I5kVlVC5Pq3nQpruZ4E3cLyKaeV95gaUrEilUkvGW71fgsFYCBWAmOZ3KpM4ux0j0zA==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify-json/ion@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@iconify-json/ion/-/ion-1.2.2.tgz#ec1afaa19b82c2856eaa6a0ec976209538cd1bae"
+  integrity sha512-GysHYDAyy3K4R2Xxsab3I0ZFmQA4oorfIkwX0g6xfZJNVZcFyAlA4pa1jAJC9Bk3cLiWUtnN8ZyWs6cP3nxlnw==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify-json/material-symbols@^1.2.12":
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/@iconify-json/material-symbols/-/material-symbols-1.2.12.tgz#1ea6e54506080b85fc4c69b8d8e41de3ac197a85"
+  integrity sha512-2p2T13Kccy7R2HNbdiVsIcHxjp4s9a+iKlfbtt29hldG1pVNaPIlMALNA9bjdEwPjwsVFe06INCbjCRc68JysQ==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify-json/octicon@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@iconify-json/octicon/-/octicon-1.2.2.tgz#5aee610b515914de3b55c7c23000e90b834507be"
+  integrity sha512-qEPkP9DMMay5uILzyaSmVksSMxRw9i2wSDREfB8OK20mPdSadusjLqD/u69GzpFpw6894c+WNmoq7WzN5KAPeg==
+  dependencies:
+    "@iconify/types" "*"
+
 "@iconify/collections@^1.0.476":
   version "1.0.479"
   resolved "https://registry.yarnpkg.com/@iconify/collections/-/collections-1.0.479.tgz#0acca637edab5731ed4efe09fedac84e4915e92c"

@@ -26,7 +26,6 @@ export const serviceRequest = async (funcaoId: string) => {
         swalError({ title: 'Ops..', text: 'Algo deu errado!' });
       } else if (errors.message !== '') {
         swalError({ title: 'Ops..', text: errors.message });
-        if (error.response.status === 401) navigateTo('/');
       } else {
         swalWarning({ title: 'Falha', text: errors.stackTrace });
       }

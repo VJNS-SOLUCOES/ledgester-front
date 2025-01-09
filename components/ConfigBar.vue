@@ -121,7 +121,7 @@ watch(open, () => {
             @click="handleOpenConfigPanel()"
           >
             <template #trailing>
-              <UIcon name="i-ic-round-close" class="w-6 h-6" />
+              <UIcon name="i-material-symbols-close" class="w-6 h-6" />
             </template>
           </UButton>
         </div>
@@ -168,8 +168,8 @@ watch(open, () => {
 
               <template #trailing>
                 <UIcon
-                  name="i-heroicons-chevron-right-20-solid"
-                  class="w-5 h-5 ms-auto transform transition-transform duration-200"
+                  name="i-material-symbols-arrow-forward-ios-rounded"
+                  class="w-4 h-4 ms-auto transform transition-transform duration-200"
                   :class="[open && 'rotate-90']"
                 />
               </template>
