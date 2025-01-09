@@ -8,12 +8,13 @@ const api: AxiosInstance = axios.create({
 
 api.interceptors.request.use(
   (request: any) => {
-    const userData = JSON.parse(localStorage.getItem('@LEDGESTER/user-store') || '');
+    const userDataRaw = localStorage.getItem('@LEDGESTER/user-store');
+    const userData = userDataRaw ? JSON.parse(userDataRaw) : null;
     return {
       ...request,
       headers: {
         ...request.headers,
-        Authorization: `Bearer ${userData.token || ''}`,
+        Authorization: `Bearer ${userData ? userData.token : ''}`,
       },
     };
   },
