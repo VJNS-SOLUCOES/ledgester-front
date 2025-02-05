@@ -58,7 +58,7 @@ watch([() => route.path, () => userStore.menu], updateMenu);
       class="h-screen w-full flex-1 flex flex-col gap-10 pr-16"
       :class="{ 'pl-20': leftBarIsPined }"
     >
-      <div class="p-8 gap-8 h-full flex flex-col">
+      <div class="p-8 gap-8 h-full overflow-y-auto flex flex-col">
         <NavBar :title="title" :child="children" />
         <slot />
       </div>

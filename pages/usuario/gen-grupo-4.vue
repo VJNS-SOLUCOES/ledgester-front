@@ -331,9 +331,7 @@ onMounted(() => {
         </SearchBar>
       </UForm>
     </div>
-    <div
-      class="min-h-[80%] justify-between bg-white flex flex-col shadow-card rounded-lg px-5 gap-5 py-5"
-    >
+    <div class="justify-between bg-white flex flex-col shadow-card rounded-lg px-5 gap-5 py-5">
       <div class="gap-5 flex flex-col h-full">
         <span>
           <h1 class="text-xl font-bold text-gray-600">Perfil de Grupo</h1>
